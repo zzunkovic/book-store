@@ -17,11 +17,14 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+}
+
+.slick-prev {
+  left: 10px;
+  z-index: 100;
+}
+
+.slick-next {
+  right: 10px;
+  z-index: 100;
 }
