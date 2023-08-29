@@ -1,4 +1,5 @@
 import CategoryItem from "./CategoryItem";
+import Link from "next/link";
 
 interface BrowseCategoriesProps {}
 
@@ -11,7 +12,7 @@ const BrowseCategories: React.FC<BrowseCategoriesProps> = () => {
       <div className="grid grid-cols-4 gap-4 h-[25rem] mb-24">
         <CategoryItem name="Fiction"></CategoryItem>
         <CategoryItem name="Non-Fiction"></CategoryItem>
-        <CategoryItem name="Kids"></CategoryItem>
+        <CategoryItem name="Children"></CategoryItem>
         <CategoryItem name="Education"></CategoryItem>
       </div>
     </section>

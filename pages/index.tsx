@@ -5,6 +5,7 @@ import SliderItemHero from "@/components/SliderItemHero";
 import BrowseCategories from "@/components/BrowseCategories";
 import TrendingBooks from "@/components/TrendingBooks";
 import NewReleases from "@/components/NewReleases";
+import WhyChooseUs from "@/components/WhyChooseUs";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function Home() {
       </div>
       <BrowseCategories></BrowseCategories>
       <TrendingBooks></TrendingBooks>
+      <WhyChooseUs></WhyChooseUs>
       <NewReleases></NewReleases>
     </>
   );
