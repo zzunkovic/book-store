@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
-import BookSearchItem from "@/components/BookSearchItem";
-import { useState, useRef } from "react";
-
+import { useEffect, useState } from "react";
+import Image from "next/image";
 const DUMMY_BOOKS = [
   {
     id: "a7d51b369e164a79bc2f3421a5f1a8af",
@@ -339,219 +338,90 @@ const DUMMY_BOOKS = [
   },
 ];
 
-const BOOKS_PER_PAGE = 15;
+interface Book {
+  id: string;
+  title: string;
+  author: string;
+  price: number;
+  trending: boolean;
+  newRelease: boolean;
+  categories: string[];
+  img: string;
+  description: string;
+  publicationDate: string;
+  ISBN: string;
+  dimension: string;
+  weight: number;
+  language: string;
+  publisher: string;
+}
 
-const BookSearchDisplay: React.FC = () => {
+const BookDisplay: React.FC = () => {
   const router = useRouter();
-  const { category } = router.query;
+  const { bookDetails } = router.query;
+  const [book, setBook] = useState<Book>();
 
-  const pageInputRef = useRef<HTMLInputElement>(null);
+  let bookId: string | undefined = undefined;
+  let bookAlt: string = "";
 
-  const [books, setBooks] = useState([...DUMMY_BOOKS]);
-  const [pageNum, setPageNum] = useState(0);
-
-  const [inputPageNum, setInputPageNum] = useState(pageNum + 1);
-
-  const maxPages = Math.trunc(books.length / BOOKS_PER_PAGE) + 1;
-
-  interface SortOptions {
-    sortParam: "none" | "title" | "price" | "publicationDate";
-    asc: boolean;
+  if (typeof bookDetails === "string") {
+    bookId = bookDetails!.split("-").pop();
   }
 
-  const [sortOptions, setSortOptions] = useState<SortOptions>({
-    sortParam: "none",
-    asc: true,
-  });
+  useEffect(() => {
+    const curBook = DUMMY_BOOKS.find((el) => el.id === bookId);
+    console.log(curBook);
+    setBook(curBook);
+  }, [bookId]);
 
-  function pageSelectHandler(e: React.FormEvent) {
-    e.preventDefault();
-    const enteredPage = +pageInputRef.current!.value;
-    if (enteredPage > maxPages || enteredPage < 1) return;
-    setPageNum(enteredPage - 1);
-    setInputPageNum(enteredPage);
+  if (book) {
+    bookAlt = book.title;
   }
-
-  function pageincrementHandler() {
-    if (pageNum === maxPages - 1) return;
-    setPageNum((prevPage) => {
-      return prevPage + 1;
-    });
-    setInputPageNum((prevInput) => {
-      return prevInput + 1;
-    });
-  }
-
-  function pageDecrementHandler() {
-    if (pageNum === 0) return;
-    setPageNum((prevPage) => {
-      return prevPage - 1;
-    });
-    setInputPageNum((prevInput) => {
-      return prevInput - 1;
-    });
-  }
-
-  function onChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
-    setInputPageNum(+e.target.value);
-  }
-
-  function sortChangeHandler(e: React.ChangeEvent<HTMLSelectElement>) {
-    const sortMethod = e.target.value;
-
-    switch (sortMethod) {
-      case "none":
-        setSortOptions({ sortParam: "none", asc: true });
-        break;
-
-      case "priceHtl":
-        setSortOptions({ sortParam: "price", asc: false });
-        break;
-      case "priceLth":
-        setSortOptions({ sortParam: "price", asc: true });
-        break;
-      case "titleAtz":
-        setSortOptions({ sortParam: "title", asc: true });
-        break;
-      case "titleZta":
-        setSortOptions({ sortParam: "title", asc: false });
-        break;
-      case "pubDateNto":
-        setSortOptions({ sortParam: "publicationDate", asc: false });
-        break;
-      case "pubDateOtn":
-        setSortOptions({ sortParam: "publicationDate", asc: true });
-        break;
-    }
-  }
-
-  function sortBooks(param: string, asc: boolean, booksArray: Array<any>) {
-    const sortedBooks = [...booksArray];
-    const sortParam = param;
-
-    if (sortParam === "price") {
-      sortedBooks.sort((a, b) => {
-        return asc ? a[sortParam] - b[sortParam] : b[sortParam] - a[sortParam];
-      });
-
-      return [...sortedBooks];
-    }
-
-    if (sortParam === "title") {
-      sortedBooks.sort((a, b) => {
-        return asc
-          ? a[sortParam].localeCompare(b[sortParam])
-          : b[sortParam].localeCompare(a[sortParam]);
-      });
-      return [...sortedBooks];
-    }
-
-    if (sortParam === "publicationDate") {
-      sortedBooks.sort((a, b) => {
-        const dateA = new Date(a[sortParam]).getTime();
-        const dateB = new Date(b[sortParam]).getTime();
-
-        return asc ? dateA - dateB : dateB - dateA;
-      });
-      return [...sortedBooks];
-    }
-    if (sortParam === "none") {
-      return [...sortedBooks];
-    }
-  }
-
-  const sortedBooks = sortBooks(sortOptions.sortParam, sortOptions.asc, books);
-
-  const slicedBooks = sortedBooks!.slice(
-    pageNum * BOOKS_PER_PAGE,
-    BOOKS_PER_PAGE + pageNum * BOOKS_PER_PAGE
-  );
-
-  console.log(sortedBooks);
 
   return (
-    <section className="mb-16 px-8">
-      <h2 className="font-bold text-5xl text-center mt-2 mb-32">
-        {category} Books
-      </h2>
-      <div className="flex mb-4 ">
-        <div className="w-64">
-          <div className="mb-8">
-            <form>
-              <label htmlFor="sort" className="font-bold">
-                Sort by:
-              </label>
-              <select
-                id="sort"
-                name="sort"
-                className="focus:outline-none border-2 rounded-lg mt-2  "
-                onChange={sortChangeHandler}
-              >
-                <option value="none">none</option>
-                <option value="priceHtl">Price - High to Low</option>
-                <option value="priceLth">Price - Low to High</option>
-                <option value="titleAtz">Title - A to Z</option>
-                <option value="titleZta">Title - Z to A</option>
+    <section className="max-w-section mx-auto mb-32 mt-16">
+      <h2 className="text-5xl font-bold mb-12">{book?.title}</h2>
+      <div className="flex gap-16">
+        <div className="w-1/3 flex-shrink-0 h-auto">
+          <Image
+            src="/img/book2.jpg"
+            width={1000}
+            height={2000}
+            alt={bookAlt}
+            className="w-full h-full "
+          ></Image>
+        </div>
 
-                <option value="pubDateNto">
-                  Publication Date - New to Old
-                </option>
-                <option value="pubDateOtn">
-                  Publication Date - Old to New
-                </option>
-              </select>
-            </form>
-          </div>
-          <div>Filter</div>
+        <div className=" flex-shrink">
+          <p className="font-bold text-6xl mb-3">${book?.price}</p>
+          <p className=" text-green-500 mb-3 flex gap-4">Available</p>
+          <button className="text-white bg-black rounded-2xl py-4 px-8 font-bold flex gap-4 mb-8">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="1.5rem"
+              fill="white"
+              viewBox="0 0 576 512"
+            >
+              <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+            </svg>
+            Add to Cart
+          </button>
+          <h3 className="font-bold text-xl">Description</h3>
+          <p className="mb-8">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. A
+            dignissimos eos magni adipisci eum necessitatibus officia sint animi
+            blanditiis repudiandae, fugiat, laborum quae? Necessitatibus dolore
+            optio, repellat dolorum recusandae labore? Lorem ipsum, dolor sit
+            amet consectetur adipisicing elit. A dignissimos eos magni adipisci
+            eum necessitatibus officia sint animi blanditiis repudiandae,
+            fugiat, laborum quae? Necessitatibus dolore optio, repellat dolorum
+            recusandae labore?
+          </p>
+          <h3 className="font-bold text-xl">Product Details</h3>
         </div>
-        <div className=" flex-1 grid grid-cols-5 gap-4">
-          {slicedBooks!.map((el) => {
-            return (
-              <BookSearchItem
-                author={el.author}
-                title={el.title}
-                key={el.id}
-                price={el.price}
-                id={el.id}
-                img="/img/book2.jpg"
-              ></BookSearchItem>
-            );
-          })}
-        </div>
-      </div>
-      <div className="flex justify-end ">
-        <button onClick={pageDecrementHandler} className="mr-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-4 w-4"
-            viewBox="0 0 320 512"
-          >
-            <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" />
-          </svg>
-        </button>
-        Page
-        <form onSubmit={pageSelectHandler} className="mx-2">
-          <input
-            ref={pageInputRef}
-            className="border-2 w-10 focus:outline-none px-2 text-center"
-            value={inputPageNum}
-            onChange={onChangeHandler}
-            placeholder="1"
-          ></input>
-        </form>
-        of {maxPages}
-        <button onClick={pageincrementHandler} className="ml-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-4 w-4"
-            viewBox="0 0 320 512"
-          >
-            <path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
-          </svg>
-        </button>
       </div>
     </section>
   );
 };
 
-export default BookSearchDisplay;
+export default BookDisplay;

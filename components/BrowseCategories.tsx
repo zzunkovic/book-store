@@ -1,5 +1,4 @@
 import CategoryItem from "./CategoryItem";
-import Link from "next/link";
 
 interface BrowseCategoriesProps {}
 
