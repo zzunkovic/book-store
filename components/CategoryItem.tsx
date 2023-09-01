@@ -6,7 +6,7 @@ interface CategoryItemProps {
 
 const CategoryItem: React.FC<CategoryItemProps> = ({ name }) => {
   return (
-    <Link href={`/${name}`}>
+    <Link className=" overflow-hidden" href={`/${name}`}>
       <div className=" bg-slate-500 text-white font-bold h-full ">{name}</div>
     </Link>
   );

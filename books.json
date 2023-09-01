@@ -1,0 +1,18 @@
+[
+  {
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "price": 12.99,
+    "trending": true,
+    "newRelease": false,
+    "categories": ["Non-Fiction", "Business"],
+    "img": "",
+    "description": "A story of the decadence and excesses of the Jazz Age.",
+    "publicationDate": "April 10, 1925",
+    "ISBN": "978-0-7432-7356-5",
+    "dimension": "5.2 x 0.6 x 7.9 inches",
+    "weight": 8.8,
+    "language": "English",
+    "publisher": "Scribner"
+  }
+]

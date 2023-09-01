@@ -6,7 +6,7 @@ interface SliderItemProps {
 }
 
 const SliderItem: React.FC<SliderItemProps> = ({ text }) => {
-  return <div className=" h-[30rem]  text-center">{text}</div>;
+  return <div className=" h-[30rem]  text-center ">{text}</div>;
 };
 
 export default SliderItem;

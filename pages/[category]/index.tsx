@@ -467,8 +467,6 @@ const BookSearchDisplay: React.FC = () => {
     BOOKS_PER_PAGE + pageNum * BOOKS_PER_PAGE
   );
 
-  console.log(sortedBooks);
-
   return (
     <section className="mb-16 px-8">
       <h2 className="font-bold text-5xl text-center mt-2 mb-32">

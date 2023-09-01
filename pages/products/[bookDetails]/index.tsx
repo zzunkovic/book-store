@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import BookSearchItem from "@/components/BookSearchItem";
 import Image from "next/image";
 const DUMMY_BOOKS = [
   {
@@ -360,6 +361,7 @@ const BookDisplay: React.FC = () => {
   const router = useRouter();
   const { bookDetails } = router.query;
   const [book, setBook] = useState<Book>();
+  const [otherBooks, setOtherBooks] = useState<Book[]>();
 
   let bookId: string | undefined = undefined;
   let bookAlt: string = "";
@@ -370,9 +372,16 @@ const BookDisplay: React.FC = () => {
 
   useEffect(() => {
     const curBook = DUMMY_BOOKS.find((el) => el.id === bookId);
-    console.log(curBook);
+
     setBook(curBook);
   }, [bookId]);
+
+  useEffect(() => {
+    const category = book?.categories[0];
+    const othBooks = DUMMY_BOOKS.filter((el) => el.categories[0] === category);
+
+    setOtherBooks([...othBooks]);
+  }, [book]);
 
   if (book) {
     bookAlt = book.title;
@@ -381,7 +390,7 @@ const BookDisplay: React.FC = () => {
   return (
     <section className="max-w-section mx-auto mb-32 mt-16">
       <h2 className="text-5xl font-bold mb-12">{book?.title}</h2>
-      <div className="flex gap-16">
+      <div className="flex gap-16 mb-16">
         <div className="w-1/3 flex-shrink-0 h-auto">
           <Image
             src="/img/book2.jpg"
@@ -408,16 +417,73 @@ const BookDisplay: React.FC = () => {
           </button>
           <h3 className="font-bold text-xl">Description</h3>
           <p className="mb-8">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. A
-            dignissimos eos magni adipisci eum necessitatibus officia sint animi
-            blanditiis repudiandae, fugiat, laborum quae? Necessitatibus dolore
-            optio, repellat dolorum recusandae labore? Lorem ipsum, dolor sit
-            amet consectetur adipisicing elit. A dignissimos eos magni adipisci
-            eum necessitatibus officia sint animi blanditiis repudiandae,
-            fugiat, laborum quae? Necessitatibus dolore optio, repellat dolorum
-            recusandae labore?
+            To Kill a Mockingbird is a gripping novel that explores themes of
+            racial injustice and moral growth in the American South during the
+            1930s. Written by the acclaimed author Harper Lee, this classic work
+            of literature delves into the life of Scout Finch, a young girl who
+            witnesses her fathers courageous fight for justice as he defends a
+            black man accused of raping a white woman. Lees masterful
+            storytelling, rich character development, and powerful exploration
+            of societal issues make this book an enduring and thought-provoking
+            read.
           </p>
-          <h3 className="font-bold text-xl">Product Details</h3>
+          <h3 className="font-bold text-xl mb-2">Product Details</h3>
+          <ul className="flex flex-col">
+            <li>
+              <span className=" font-semibold">Title:</span> {book?.title}
+            </li>
+            <li>
+              <span className=" font-semibold">Author:</span> {book?.author}
+            </li>
+            <li>
+              <span className=" font-semibold">Categories:</span>&nbsp;
+              {book?.categories.map((el, ind) => {
+                if (ind !== book.categories.length - 1) {
+                  return `${el}, `;
+                } else {
+                  return el;
+                }
+              })}
+            </li>
+            <li>
+              <span className=" font-semibold">Publication Date:</span>{" "}
+              {book?.publicationDate}
+            </li>
+            <li>
+              <span className=" font-semibold">ISBN:</span> {book?.ISBN}
+            </li>
+            <li>
+              <span className=" font-semibold">Dimensions:</span>{" "}
+              {book?.dimension}
+            </li>
+            <li>
+              <span className=" font-semibold">Weight:</span> {book?.weight} g
+            </li>
+            <li>
+              <span className=" font-semibold">Language:</span> {book?.language}
+            </li>
+            <li>
+              <span className=" font-semibold">Publisher:</span>{" "}
+              {book?.publisher}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <h3 className="text-3xl mb-8">Other books you might like</h3>
+        <div className="grid grid-cols-5 gap-2">
+          {otherBooks?.slice(0, 4).map((el) => {
+            return (
+              <BookSearchItem
+                title={el.title}
+                author={el.author}
+                price={el.price}
+                id={el.id}
+                img=""
+                key={el.id}
+              ></BookSearchItem>
+            );
+          })}
         </div>
       </div>
     </section>

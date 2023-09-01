@@ -6,10 +6,25 @@ import BrowseCategories from "@/components/BrowseCategories";
 import TrendingBooks from "@/components/TrendingBooks";
 import NewReleases from "@/components/NewReleases";
 import WhyChooseUs from "@/components/WhyChooseUs";
+import { useEffect } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
+async function getData() {
+  try {
+    const res = await fetch(`/api/books`);
+    const data = await res.json();
+    console.log(data);
+  } catch (error) {
+    console.log("something went wrong");
+  }
+}
+
 export default function Home() {
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <>
       <div className="  max-w-section mx-auto  bg-slate-400 mb-16">
@@ -26,8 +41,8 @@ export default function Home() {
       </div>
       <BrowseCategories></BrowseCategories>
       <TrendingBooks></TrendingBooks>
-      <WhyChooseUs></WhyChooseUs>
       <NewReleases></NewReleases>
+      <WhyChooseUs></WhyChooseUs>
     </>
   );
 }
