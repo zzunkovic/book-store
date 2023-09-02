@@ -25,7 +25,8 @@ const BookSearchItem: React.FC<BookSearchItemProps> = ({
       <div className=" border-2 py-4 px-4 rounded-xl h-full">
         <div className="mb-4 flex justify-center">
           <Image
-            src="/img/book2.jpg"
+            className="h-36 w-auto"
+            src={img}
             alt={title}
             width={100}
             height={200}

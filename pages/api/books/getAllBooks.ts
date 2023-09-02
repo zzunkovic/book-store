@@ -1,3 +1,6 @@
+import { Book } from "@/utils/db";
+import { NextApiRequest, NextApiResponse } from "next";
+
 type FirstValue = "Fiction" | "Non-Fiction" | "Children" | "Education";
 
 type SecondValue = {
@@ -36,7 +39,7 @@ type SecondValue = {
     | "Technology";
 };
 
-interface Book {
+interface BookInterface {
   id: string;
   title: string;
   author: string;
@@ -52,4 +55,25 @@ interface Book {
   weight: number;
   language: string;
   publisher: string;
+}
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  try {
+    // await connectDb();
+    const allBooks = await Book.find();
+    res.status(200).json({
+      status: "success",
+      data: {
+        books: allBooks,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "fail",
+      message: err,
+    });
+  }
 }

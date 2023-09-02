@@ -339,7 +339,7 @@ const DUMMY_BOOKS = [
   },
 ];
 
-interface Book {
+interface BookInterface {
   id: string;
   title: string;
   author: string;
@@ -360,8 +360,8 @@ interface Book {
 const BookDisplay: React.FC = () => {
   const router = useRouter();
   const { bookDetails } = router.query;
-  const [book, setBook] = useState<Book>();
-  const [otherBooks, setOtherBooks] = useState<Book[]>();
+  const [book, setBook] = useState<BookInterface>();
+  const [otherBooks, setOtherBooks] = useState<BookInterface[]>();
 
   let bookId: string | undefined = undefined;
   let bookAlt: string = "";

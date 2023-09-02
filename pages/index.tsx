@@ -21,9 +21,9 @@ async function getData() {
 }
 
 export default function Home() {
-  useEffect(() => {
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
   return (
     <>

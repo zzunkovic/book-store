@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import BookSearchItem from "@/components/BookSearchItem";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const DUMMY_BOOKS = [
   {
@@ -343,16 +343,42 @@ const BOOKS_PER_PAGE = 15;
 
 const BookSearchDisplay: React.FC = () => {
   const router = useRouter();
+
   const { category } = router.query;
+  console.log("💜💜", category);
 
   const pageInputRef = useRef<HTMLInputElement>(null);
 
-  const [books, setBooks] = useState([...DUMMY_BOOKS]);
+  const [books, setBooks] = useState([]);
   const [pageNum, setPageNum] = useState(0);
 
   const [inputPageNum, setInputPageNum] = useState(pageNum + 1);
 
-  const maxPages = Math.trunc(books.length / BOOKS_PER_PAGE) + 1;
+  useEffect(() => {
+    async function fetchData() {
+      console.log(category);
+      const categoryJSON = JSON.stringify(category);
+
+      try {
+        const res = await fetch("/api/books/getCategory", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/JSON",
+          },
+          body: categoryJSON,
+        });
+        const data = await res.json();
+        console.log("💢💌💢💌", data.data.books);
+        setBooks(data.data.books);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  const maxPages = Math.trunc(books?.length / BOOKS_PER_PAGE) + 1;
 
   interface SortOptions {
     sortParam: "none" | "title" | "price" | "publicationDate";
@@ -426,6 +452,7 @@ const BookSearchDisplay: React.FC = () => {
   }
 
   function sortBooks(param: string, asc: boolean, booksArray: Array<any>) {
+    // console.log(booksArray);
     const sortedBooks = [...booksArray];
     const sortParam = param;
 
@@ -511,7 +538,7 @@ const BookSearchDisplay: React.FC = () => {
                 key={el.id}
                 price={el.price}
                 id={el.id}
-                img="/img/book2.jpg"
+                img={el.img}
               ></BookSearchItem>
             );
           })}

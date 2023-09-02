@@ -19,7 +19,7 @@ const TrendingBooks: React.FC = () => {
         ></SliderItemBook>{" "}
         <SliderItemBook
           name="Kaisen"
-          img="/img/book2.jpg"
+          img="https://wordery.com/jackets/62763e38/no-plan-b-lee-child-9780552177542.jpg?width=257"
           author="Eichiro Ooda"
           price={20}
         ></SliderItemBook>{" "}
