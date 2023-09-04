@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+
 import slugify from "slugify";
 
 interface BookSearchItemProps {
@@ -21,8 +21,8 @@ const BookSearchItem: React.FC<BookSearchItemProps> = ({
   const slug = slugify(title + " " + author + " " + id);
 
   return (
-    <Link href={`/products/${slug}`}>
-      <div className=" border-2 py-4 px-4 rounded-xl h-full">
+    <Link href={`/products/${slug}`} className="">
+      <div className=" border-2 py-4 px-4 rounded-xl h-full hover:bg-black/10 duration-300 transition-all">
         <div className="mb-4 flex justify-center">
           <Image
             className="h-36 w-auto"

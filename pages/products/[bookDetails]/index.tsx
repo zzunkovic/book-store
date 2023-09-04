@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import BookSearchItem from "@/components/BookSearchItem";
 import Image from "next/image";
+import { data } from "autoprefixer";
 const DUMMY_BOOKS = [
   {
     id: "a7d51b369e164a79bc2f3421a5f1a8af",
@@ -340,7 +341,7 @@ const DUMMY_BOOKS = [
 ];
 
 interface BookInterface {
-  id: string;
+  _id: string;
   title: string;
   author: string;
   price: number;
@@ -371,16 +372,42 @@ const BookDisplay: React.FC = () => {
   }
 
   useEffect(() => {
-    const curBook = DUMMY_BOOKS.find((el) => el.id === bookId);
-
-    setBook(curBook);
+    // const curBook = DUMMY_BOOKS.find((el) => el.id === bookId);
+    async function fetchData(id: string | undefined) {
+      const idJSON = JSON.stringify(id);
+      const res = await fetch("/api/books/getBook", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/JSON",
+        },
+        body: idJSON,
+      });
+      const data = await res.json();
+      console.log("🧡❤🧡❤", data);
+      setBook(data.data.book);
+    }
+    fetchData(bookId);
+    // setBook(curBook);
   }, [bookId]);
 
   useEffect(() => {
-    const category = book?.categories[0];
-    const othBooks = DUMMY_BOOKS.filter((el) => el.categories[0] === category);
+    const category = book?.categories[0] as string;
+    // const othBooks = DUMMY_BOOKS.filter((el) => el.categories[0] === category);
+    async function fetchData(category: string) {
+      const categoryJSON = JSON.stringify(category);
+      const res = await fetch("/api/books/getCategory", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/JSON",
+        },
+        body: categoryJSON,
+      });
 
-    setOtherBooks([...othBooks]);
+      const othBooks = await res.json();
+      setOtherBooks([...othBooks.data.books]);
+    }
+
+    fetchData(category);
   }, [book]);
 
   if (book) {
@@ -391,13 +418,13 @@ const BookDisplay: React.FC = () => {
     <section className="max-w-section mx-auto mb-32 mt-16">
       <h2 className="text-5xl font-bold mb-12">{book?.title}</h2>
       <div className="flex gap-16 mb-16">
-        <div className="w-1/3 flex-shrink-0 h-auto">
+        <div className="w-1/3 flex-shrink-0 ">
           <Image
-            src="/img/book2.jpg"
+            src={book?.img as string}
             width={1000}
             height={2000}
             alt={bookAlt}
-            className="w-full h-full "
+            className="w-full"
           ></Image>
         </div>
 
@@ -415,18 +442,8 @@ const BookDisplay: React.FC = () => {
             </svg>
             Add to Cart
           </button>
-          <h3 className="font-bold text-xl">Description</h3>
-          <p className="mb-8">
-            To Kill a Mockingbird is a gripping novel that explores themes of
-            racial injustice and moral growth in the American South during the
-            1930s. Written by the acclaimed author Harper Lee, this classic work
-            of literature delves into the life of Scout Finch, a young girl who
-            witnesses her fathers courageous fight for justice as he defends a
-            black man accused of raping a white woman. Lees masterful
-            storytelling, rich character development, and powerful exploration
-            of societal issues make this book an enduring and thought-provoking
-            read.
-          </p>
+          <h3 className="font-bold text-xl mb-2">Description</h3>
+          <p className="mb-8">{book?.description}</p>
           <h3 className="font-bold text-xl mb-2">Product Details</h3>
           <ul className="flex flex-col">
             <li>
@@ -437,8 +454,8 @@ const BookDisplay: React.FC = () => {
             </li>
             <li>
               <span className=" font-semibold">Categories:</span>&nbsp;
-              {book?.categories.map((el, ind) => {
-                if (ind !== book.categories.length - 1) {
+              {book?.categories?.map((el, ind) => {
+                if (ind !== book.categories?.length - 1) {
                   return `${el}, `;
                 } else {
                   return el;
@@ -472,15 +489,15 @@ const BookDisplay: React.FC = () => {
       <div>
         <h3 className="text-3xl mb-8">Other books you might like</h3>
         <div className="grid grid-cols-5 gap-2">
-          {otherBooks?.slice(0, 4).map((el) => {
+          {otherBooks?.slice(0, 5).map((el) => {
             return (
               <BookSearchItem
                 title={el.title}
                 author={el.author}
                 price={el.price}
-                id={el.id}
-                img=""
-                key={el.id}
+                id={el._id}
+                img={el.img}
+                key={el._id}
               ></BookSearchItem>
             );
           })}

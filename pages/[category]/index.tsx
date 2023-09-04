@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import BookSearchItem from "@/components/BookSearchItem";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, FormEvent } from "react";
 
 const DUMMY_BOOKS = [
   {
@@ -339,17 +339,50 @@ const DUMMY_BOOKS = [
   },
 ];
 
+const allCategories: any = {
+  Fiction: [
+    "Adventure",
+    "Crime",
+    "Mystery",
+    "Thriller",
+    "Graphic Novels",
+    "Romance",
+    "Fantasy",
+    "Science Fiction",
+  ],
+  "Non-Fiction": [
+    "Art",
+    "Biography",
+    "Business",
+    "Computing",
+    "Health&Lifestyle",
+    "History",
+    "Philosophy",
+    "Music",
+    "Sport",
+    "Travel",
+  ],
+  Children: ["Activities", "Comics", "Early Learning", "Picture Books"],
+  Education: ["Geography", "Languages", "Mathematics", "Medical", "Technology"],
+};
+
 const BOOKS_PER_PAGE = 15;
 
 const BookSearchDisplay: React.FC = () => {
   const router = useRouter();
+  const [category, setCategory] = useState("");
+  const [filterOptions, setFilterOptions] = useState([]);
 
-  const { category } = router.query;
-  console.log("💜💜", category);
+  useEffect(() => {
+    setCategory(router.query.category as string);
+  }, [router.query.category]);
+
+  console.log("💜💜", category, router.query.category);
 
   const pageInputRef = useRef<HTMLInputElement>(null);
 
   const [books, setBooks] = useState([]);
+  const [filteredBooks, setFilteredBooks] = useState([]);
   const [pageNum, setPageNum] = useState(0);
 
   const [inputPageNum, setInputPageNum] = useState(pageNum + 1);
@@ -370,15 +403,16 @@ const BookSearchDisplay: React.FC = () => {
         const data = await res.json();
         console.log("💢💌💢💌", data.data.books);
         setBooks(data.data.books);
+        setFilteredBooks(data.data.books);
       } catch (err) {
         console.log(err);
       }
     }
 
     fetchData();
-  }, []);
+  }, [category]);
 
-  const maxPages = Math.trunc(books?.length / BOOKS_PER_PAGE) + 1;
+  const maxPages = Math.trunc(filteredBooks?.length / BOOKS_PER_PAGE) + 1;
 
   interface SortOptions {
     sortParam: "none" | "title" | "price" | "publicationDate";
@@ -487,7 +521,42 @@ const BookSearchDisplay: React.FC = () => {
     }
   }
 
-  const sortedBooks = sortBooks(sortOptions.sortParam, sortOptions.asc, books);
+  const checkboxChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target;
+
+    if (value.checked) {
+      setFilterOptions((prevOptions) => {
+        return [...prevOptions, value.value] as never[];
+      });
+    } else {
+      setFilterOptions((prevOptions) => {
+        return prevOptions?.filter((option) => option !== value.value);
+      });
+    }
+  };
+
+  const bookFilter = (books: Array<any>) => {
+    let filtered = [...books];
+    console.log(books, "💙💙", filterOptions);
+
+    filtered = filtered.filter((el) => {
+      return filterOptions.includes(el.categories[1] as never);
+    });
+
+    console.log(filtered);
+    setFilteredBooks(filtered as never[]);
+  };
+
+  const checkboxFormSubmitHandler = (e: FormEvent) => {
+    e.preventDefault();
+    bookFilter(books);
+  };
+
+  const sortedBooks = sortBooks(
+    sortOptions.sortParam,
+    sortOptions.asc,
+    filteredBooks
+  );
 
   const slicedBooks = sortedBooks!.slice(
     pageNum * BOOKS_PER_PAGE,
@@ -527,7 +596,32 @@ const BookSearchDisplay: React.FC = () => {
               </select>
             </form>
           </div>
-          <div>Filter</div>
+          <div>
+            <form onSubmit={checkboxFormSubmitHandler}>
+              <h4 className="font-bold">Filter</h4>
+              {allCategories[category]?.map((subCat: string) => {
+                return (
+                  <div key={subCat} className="flex items-center">
+                    <input
+                      className="mr-2 h-4 w-4 rounded-full text-blue-500"
+                      type="checkbox"
+                      id={subCat}
+                      value={subCat}
+                      onChange={checkboxChangeHandler}
+                    ></input>
+                    <label htmlFor={subCat}>{subCat}</label>
+                  </div>
+                );
+              })}
+
+              <button
+                type="submit"
+                className="text-white font-bold bg-black px-4 py-2  mt-2"
+              >
+                Filter
+              </button>
+            </form>
+          </div>
         </div>
         <div className=" flex-1 grid grid-cols-5 gap-4">
           {slicedBooks!.map((el) => {
@@ -535,9 +629,9 @@ const BookSearchDisplay: React.FC = () => {
               <BookSearchItem
                 author={el.author}
                 title={el.title}
-                key={el.id}
+                key={el._id}
                 price={el.price}
-                id={el.id}
+                id={el._id}
                 img={el.img}
               ></BookSearchItem>
             );
