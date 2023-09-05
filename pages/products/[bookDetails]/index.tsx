@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import BookSearchItem from "@/components/BookSearchItem";
 import Image from "next/image";
 import { data } from "autoprefixer";
+import { useCartContext } from "@/store/CartContext";
 const DUMMY_BOOKS = [
   {
     id: "a7d51b369e164a79bc2f3421a5f1a8af",
@@ -364,6 +365,8 @@ const BookDisplay: React.FC = () => {
   const [book, setBook] = useState<BookInterface>();
   const [otherBooks, setOtherBooks] = useState<BookInterface[]>();
 
+  const { addToCartHandler } = useCartContext();
+
   let bookId: string | undefined = undefined;
   let bookAlt: string = "";
 
@@ -414,6 +417,10 @@ const BookDisplay: React.FC = () => {
     bookAlt = book.title;
   }
 
+  const onClickCartHandler = () => {
+    addToCartHandler(book as BookInterface);
+  };
+
   return (
     <section className="max-w-section mx-auto mb-32 mt-16">
       <h2 className="text-5xl font-bold mb-12">{book?.title}</h2>
@@ -431,7 +438,10 @@ const BookDisplay: React.FC = () => {
         <div className=" flex-shrink">
           <p className="font-bold text-6xl mb-3">${book?.price}</p>
           <p className=" text-green-500 mb-3 flex gap-4">Available</p>
-          <button className="text-white bg-black rounded-2xl py-4 px-8 font-bold flex gap-4 mb-8">
+          <button
+            onClick={onClickCartHandler}
+            className="text-white bg-black rounded-2xl py-4 px-8 font-bold flex gap-4 mb-8"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               height="1.5rem"

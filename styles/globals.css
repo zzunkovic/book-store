@@ -17,14 +17,15 @@
 }
 
 body {
+  /* position: relative; */
 }
 
 .slick-prev {
   left: 10px;
-  z-index: 100;
+  z-index: 40;
 }
 
 .slick-next {
   right: 10px;
-  z-index: 100;
+  z-index: 40;
 }
