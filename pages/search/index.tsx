@@ -55,7 +55,7 @@ const SearchPage: React.FC = () => {
           ></input>
           <button
             type="submit"
-            className="bg-black text-white px-4 rounded-r-2xl hover:bg-black/90"
+            className="bg-black text-white px-4 rounded-r-2xl font-bold hover:bg-black/90"
           >
             Search
           </button>

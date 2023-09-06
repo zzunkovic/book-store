@@ -1,0 +1,13 @@
+.element::-webkit-scrollbar {
+  width: 6px; /* Specify a width for the scrollbar */
+}
+
+.element::-webkit-scrollbar-thumb {
+  background-color: black;
+  border-radius: 20px; /* Change the color as desired */
+}
+
+/* Specify a color for the scrollbar track */
+.element::-webkit-scrollbar-track {
+  background-color: #ddd; /* Change the color as desired */
+}

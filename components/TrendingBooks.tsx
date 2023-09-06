@@ -1,7 +1,26 @@
 import SliderComponent from "./SliderComponent";
 import SliderItemBook from "./SliderItemBook";
+import HomeBookItem from "./HomeBookItem";
+import { useEffect, useState } from "react";
+import BookInterface from "@/models/BookInterface";
 
 const TrendingBooks: React.FC = () => {
+  const [books, setBooks] = useState<BookInterface[]>();
+
+  console.log(books);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await fetch("/api/books/getTrendingBooks");
+        const data = await res.json();
+        console.log(data);
+        setBooks([...data.data.books]);
+      } catch (err) {}
+    }
+
+    fetchData();
+  }, []);
+
   return (
     <section className="max-w-section mx-auto mb-32">
       <h2 className="text-center text-4xl font-bold mb-16">Trending Books</h2>
@@ -10,49 +29,20 @@ const TrendingBooks: React.FC = () => {
         slidesToShow={5}
         slidesToScroll={3}
         dots={true}
+        adaptiveHeight={false}
       >
-        <SliderItemBook
-          name="Kaisen"
-          img="/img/book2.jpg"
-          author="Eichiro Ooda"
-          price={20}
-        ></SliderItemBook>{" "}
-        <SliderItemBook
-          name="Kaisen"
-          img="https://wordery.com/jackets/62763e38/no-plan-b-lee-child-9780552177542.jpg?width=257"
-          author="Eichiro Ooda"
-          price={20}
-        ></SliderItemBook>{" "}
-        <SliderItemBook
-          name="Kaisen"
-          img="/img/book2.jpg"
-          author="Eichiro Ooda"
-          price={20}
-        ></SliderItemBook>{" "}
-        <SliderItemBook
-          name="Kaisen"
-          img="/img/book2.jpg"
-          author="Eichiro Ooda"
-          price={20}
-        ></SliderItemBook>{" "}
-        <SliderItemBook
-          name="Kaisen"
-          img="/img/book2.jpg"
-          author="Eichiro Ooda"
-          price={20}
-        ></SliderItemBook>{" "}
-        <SliderItemBook
-          name="Kaisen"
-          img="/img/book2.jpg"
-          author="Eichiro Ooda"
-          price={20}
-        ></SliderItemBook>{" "}
-        <SliderItemBook
-          name="Kaisen"
-          img="/img/book2.jpg"
-          author="Eichiro Ooda"
-          price={20}
-        ></SliderItemBook>
+        {books?.map((el) => {
+          return (
+            <HomeBookItem
+              img={el.img}
+              title={el.title}
+              author={el.author}
+              price={el.price}
+              id={el._id}
+              key={el._id}
+            ></HomeBookItem>
+          );
+        })}
       </SliderComponent>
     </section>
   );

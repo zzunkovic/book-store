@@ -4,6 +4,7 @@ import BookSearchItem from "@/components/BookSearchItem";
 import Image from "next/image";
 import { data } from "autoprefixer";
 import { useCartContext } from "@/store/CartContext";
+import BookInterface from "@/models/BookInterface";
 const DUMMY_BOOKS = [
   {
     id: "a7d51b369e164a79bc2f3421a5f1a8af",
@@ -13,7 +14,7 @@ const DUMMY_BOOKS = [
     trending: true,
     newRelease: false,
     categories: ["Non-Fiction", "Business"],
-    img: "",
+    img: "/img/book2.jpg",
     description: "A story of the decadence and excesses of the Jazz Age.",
     publicationDate: "April 10, 1925",
     ISBN: "978-0-7432-7356-5",
@@ -341,24 +342,6 @@ const DUMMY_BOOKS = [
   },
 ];
 
-interface BookInterface {
-  _id: string;
-  title: string;
-  author: string;
-  price: number;
-  trending: boolean;
-  newRelease: boolean;
-  categories: string[];
-  img: string;
-  description: string;
-  publicationDate: string;
-  ISBN: string;
-  dimension: string;
-  weight: number;
-  language: string;
-  publisher: string;
-}
-
 const BookDisplay: React.FC = () => {
   const router = useRouter();
   const { bookDetails } = router.query;
@@ -418,6 +401,7 @@ const BookDisplay: React.FC = () => {
   }
 
   const onClickCartHandler = () => {
+    console.log("Button CLicked ☢☢☢");
     addToCartHandler(book as BookInterface);
   };
 

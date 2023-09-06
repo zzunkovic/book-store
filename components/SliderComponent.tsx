@@ -7,6 +7,7 @@ interface SliderComponentProps {
   speed: number;
   slidesToScroll: number;
   dots: boolean;
+  adaptiveHeight: boolean;
 }
 
 const SliderComponent: React.FC<SliderComponentProps> = ({
@@ -15,10 +16,11 @@ const SliderComponent: React.FC<SliderComponentProps> = ({
   speed,
   slidesToScroll,
   dots,
+  adaptiveHeight,
 }) => {
   const settings = {
     dots: dots,
-    adaptiveHeight: true,
+    adaptiveHeight: adaptiveHeight,
     draggable: true,
     autoplay: true,
     autoplaySpeed: 5000,

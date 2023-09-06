@@ -10,21 +10,7 @@ import { useEffect } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-async function getData() {
-  try {
-    const res = await fetch(`/api/books`);
-    const data = await res.json();
-    console.log(data);
-  } catch (error) {
-    console.log("something went wrong");
-  }
-}
-
 export default function Home() {
-  // useEffect(() => {
-  //   getData();
-  // }, []);
-
   return (
     <>
       <div className="  max-w-section mx-auto  bg-slate-400 mb-16">
@@ -33,6 +19,7 @@ export default function Home() {
           slidesToShow={1}
           slidesToScroll={1}
           dots={true}
+          adaptiveHeight={true}
         >
           <SliderItemHero text="1"></SliderItemHero>
           <SliderItemHero text="2"></SliderItemHero>
