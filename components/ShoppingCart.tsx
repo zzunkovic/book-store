@@ -10,7 +10,7 @@ const ShoppingCart: React.FC = () => {
     <div
       className={` fixed  z-50 right-0 bg-white text-white  w-96 top-0 pt-16 h-full   transition-all  duration-300 ${
         cartOpen ? "" : " translate-x-[100%]"
-      }`}
+      } shadow-md`}
     >
       <h2 className="font-bold text-xl text-center mt-4 mb-4 text-black">
         Shopping Cart

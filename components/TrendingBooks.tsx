@@ -27,7 +27,7 @@ const TrendingBooks: React.FC = () => {
       <SliderComponent
         speed={500}
         slidesToShow={5}
-        slidesToScroll={3}
+        slidesToScroll={5}
         dots={true}
         adaptiveHeight={false}
       >

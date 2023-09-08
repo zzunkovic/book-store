@@ -1,5 +1,6 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import BookSearchItem from "@/components/BookSearchItem";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 interface BookSearchItemInterface {
   title: string;
@@ -15,6 +16,7 @@ const SearchPage: React.FC = () => {
   const [searchedBooks, setSearchedBooks] =
     useState<BookSearchItemInterface[]>();
 
+  const [isLoading, setIsLoading] = useState(false);
   const onSubmitHandler = (e: FormEvent) => {
     e.preventDefault();
     setSearchString(inputRef.current?.value);
@@ -25,6 +27,7 @@ const SearchPage: React.FC = () => {
       if (searchString === "") return;
       const searchStringJSON = JSON.stringify(searchString);
       try {
+        setIsLoading(true);
         const res = await fetch("/api/books/getBookSearch", {
           method: "POST",
           headers: {
@@ -34,6 +37,7 @@ const SearchPage: React.FC = () => {
         });
         const data = await res.json();
         setSearchedBooks([...data.data.books]);
+        setIsLoading(false);
       } catch (err) {
         console.log(err);
       }
@@ -61,20 +65,27 @@ const SearchPage: React.FC = () => {
           </button>
         </div>
       </form>
-      <div className="grid grid-cols-4 gap-4">
-        {searchedBooks?.map((el) => {
-          return (
-            <BookSearchItem
-              img={el.img}
-              title={el.title}
-              author={el.author}
-              price={el.price}
-              id={el._id}
-              key={el._id}
-            ></BookSearchItem>
-          );
-        })}
-      </div>
+      {isLoading ? (
+        <div className="">
+          {" "}
+          <LoadingSpinner fullscreen={false}></LoadingSpinner>
+        </div>
+      ) : (
+        <div className="grid grid-cols-4 gap-4">
+          {searchedBooks?.map((el) => {
+            return (
+              <BookSearchItem
+                img={el.img}
+                title={el.title}
+                author={el.author}
+                price={el.price}
+                id={el._id}
+                key={el._id}
+              ></BookSearchItem>
+            );
+          })}
+        </div>
+      )}
     </section>
   );
 };

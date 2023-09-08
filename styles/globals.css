@@ -30,8 +30,13 @@ html::-webkit-scrollbar-track {
   background-color: #ddd;
 }
 
+html {
+  min-height: 100vh;
+}
+
 body {
   overflow-x: hidden;
+  min-height: 100vh;
   /* position: relative; */
 }
 
@@ -44,3 +49,9 @@ body {
   right: 10px;
   z-index: 40;
 }
+
+/* #__next {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+} */

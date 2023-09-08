@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Inter } from "next/font/google";
 import SliderComponent from "@/components/SliderComponent";
 import SliderItemHero from "@/components/SliderItemHero";
@@ -6,7 +5,6 @@ import BrowseCategories from "@/components/BrowseCategories";
 import TrendingBooks from "@/components/TrendingBooks";
 import NewReleases from "@/components/NewReleases";
 import WhyChooseUs from "@/components/WhyChooseUs";
-import { useEffect } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
