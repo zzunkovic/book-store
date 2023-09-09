@@ -40,7 +40,7 @@ const ShoppingCart: React.FC = () => {
           </div>
 
           <Link
-            href="#"
+            href="/checkout"
             className="text-white bg-black p-2 font-bold block text-center rounded-xl hover:bg-black/90 transition-all duration-300 mt-4"
           >
             Go to Checkout

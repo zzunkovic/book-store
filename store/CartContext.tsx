@@ -13,6 +13,7 @@ interface CartContextType {
   openCartHandler: () => void;
   closeCartHandler: () => void;
   toggleCartHandler: () => void;
+  setQuantity: (quantity: number, id: string) => void;
   addToCartHandler: (item: BookInterface) => void;
   removeFromCartHandler: (id: string) => void;
 }
@@ -25,6 +26,7 @@ const CartContext = React.createContext<CartContextType>({
   closeCartHandler: () => {},
   toggleCartHandler: () => {},
   addToCartHandler: () => {},
+  setQuantity: () => {},
   removeFromCartHandler: () => {},
 });
 
@@ -99,6 +101,18 @@ const CartContextProvider = (props: any) => {
     });
   };
 
+  const setQuantity = (quantity: number, id: string) => {
+    const bookIndex = cart.findIndex((el) => {
+      return el.book._id === id;
+    });
+
+    setCart((prevCart) => {
+      const newCart = [...prevCart];
+      newCart[bookIndex].quantity = quantity;
+      return newCart;
+    });
+  };
+
   useEffect(() => {
     let sum = 0;
 
@@ -119,6 +133,7 @@ const CartContextProvider = (props: any) => {
         totalPrice,
         openCartHandler,
         closeCartHandler,
+        setQuantity,
         toggleCartHandler,
         addToCartHandler,
         removeFromCartHandler,
