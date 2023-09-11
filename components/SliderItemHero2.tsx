@@ -27,7 +27,7 @@ const SliderItem2: React.FC<SliderItemProps> = ({ image }) => {
           LibreFranklin.className
         } ${
           isMobile
-            ? "top-[40%] translate-y-[-150%] max-[390px]:translate-y-[-100%]"
+            ? "top-[40%] translate-y-[-150%] max-[700px]:translate-y-[-300%] max-[450px]:translate-y-[-250%] max-[390px]:translate-y-[-200%]"
             : ""
         } `}
         href="/products/The-Witcher-The-Last-Wish-Andrzej-Sapkowski-64fda29ad7368c46bec0bc19"

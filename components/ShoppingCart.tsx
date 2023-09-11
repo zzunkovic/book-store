@@ -8,7 +8,7 @@ const ShoppingCart: React.FC = () => {
 
   return (
     <div
-      className={` fixed  z-50 right-0 bg-white text-white  w-96 top-0 pt-16 h-full   transition-all  duration-300 ${
+      className={` fixed  z-50 right-0 bg-white text-white  w-96 top-0 pt-16 h-full   transition-all  duration-300 max-[500px]:w-80 ${
         cartOpen ? "" : " translate-x-[100%]"
       } shadow-md`}
     >
