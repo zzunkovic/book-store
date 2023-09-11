@@ -10,15 +10,24 @@ interface SliderItemProps {
 }
 
 const SliderItem1: React.FC<SliderItemProps> = ({ image }) => {
-  const isMobile = useMediaQuery({ query: "(max-width:800px)" });
+  const isMobile = useMediaQuery({ query: "(max-width:700px)" });
   return (
     <div className="  relative">
-      {<Image src={image} alt="Promotion" width={1280} height={480}></Image>}
+      {
+        <Image
+          src={image}
+          alt="Promotion"
+          width={isMobile ? 626 : 1280}
+          height={isMobile ? 702 : 480}
+        ></Image>
+      }
       <Link
-        className={`absolute whitespace-nowrap text-3xl top-[75%] left-[65%] uppercase px-8 py-4 font-bold bg-black text-white ${
+        className={`absolute whitespace-nowrap text-3xl max-[509px]:text-base max-[400px]:text-sm  top-[75%] left-[65%] uppercase px-8 py-4 font-bold bg-black text-white ${
           LibreFranklin.className
         } max-[980px]:text-2xl ${
-          isMobile ? "top-[30%] translate-y-[-230%] left-[20%]" : ""
+          isMobile
+            ? "top-[30%] translate-y-[-280%] left-[60%] translate-x-[-70%] max-[475px]:translate-y-[-240%] max-[400px]:translate-y-[-190%]"
+            : ""
         }`}
         href="/search"
       >

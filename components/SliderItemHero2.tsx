@@ -11,14 +11,25 @@ interface SliderItemProps {
 }
 
 const SliderItem2: React.FC<SliderItemProps> = ({ image }) => {
-  const isMobile = useMediaQuery({ query: "(max-width:800px)" });
+  const isMobile = useMediaQuery({ query: "(max-width:700px)" });
   return (
     <div className="  relative">
-      {<Image src={image} alt="Promotion" width={1280} height={480}></Image>}
+      {
+        <Image
+          src={image}
+          alt="Promotion"
+          width={isMobile ? 626 : 1280}
+          height={isMobile ? 702 : 480}
+        ></Image>
+      }
       <Link
-        className={`absolute whitespace-nowrap text-xl top-[50%] left-[50%] translate-x-[-50%] uppercase px-4 py-2 font-bold bg-black text-white ${
+        className={`absolute whitespace-nowrap text-xl max-[509px]:text-sm top-[50%] left-[50%] translate-x-[-50%] uppercase px-4 py-2 font-bold bg-black text-white ${
           LibreFranklin.className
-        } ${isMobile ? "top-[28%]" : ""}`}
+        } ${
+          isMobile
+            ? "top-[40%] translate-y-[-150%] max-[390px]:translate-y-[-100%]"
+            : ""
+        } `}
         href="/products/The-Witcher-The-Last-Wish-Andrzej-Sapkowski-64fda29ad7368c46bec0bc19"
       >
         Buy Now
