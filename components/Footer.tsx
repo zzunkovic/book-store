@@ -2,8 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-black text-white py-32">
-      <div className="max-w-section mx-auto grid grid-cols-3">
+    <footer className="bg-black text-white py-32 px-8">
+      <div className="max-w-section mx-auto grid grid-cols-3 gap-4 max-[980px]:grid-cols-2 max-[600px]:grid-cols-1">
         <div>
           <Link href="" className="">
             <Image
@@ -75,7 +75,7 @@ const Footer: React.FC = () => {
             </li>{" "}
           </ul>
         </div>
-        <div>
+        <div className="max-[980px]:col-span-full">
           <h3 className="font-bold mb-4">Contact Us</h3>
           <address className=" flex flex-col gap-4 not-italic">
             <div className="flex gap-2">

@@ -33,7 +33,7 @@ const HomeBookItem: React.FC<BookSearchItemProps> = ({
           ></Image>
         </div>
         <p className="font-bold text-lg text-center">{title}</p>
-        <p className="text-center mb-2">{author}</p>
+        <p className="text-center mb-2  text-">{author}</p>
         <p className="text-center text-lg">{price}$</p>
       </div>
     </Link>

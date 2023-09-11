@@ -232,11 +232,11 @@ const BookSearchDisplay: React.FC = () => {
       <h2 className="font-bold text-5xl text-center mt-2 mb-32">
         {category} Books
       </h2>
-      <div className="flex mb-4 ">
-        <div className="w-64">
-          <div className="mb-8">
+      <div className="flex mb-4 max-[1050px]:flex-col max-[1050px]:gap-8  ">
+        <div className="w-64 max-[1050px]:flex max-[1050px]:w-full max-[1050px]:gap-16 max-[780px]:flex-col max-[780px]:gap-2  ">
+          <div className="mb-8 ">
             <form>
-              <label htmlFor="sort" className="font-bold">
+              <label htmlFor="sort" className="font-bold max-[1050px]:block">
                 Sort by:
               </label>
               <select
@@ -261,26 +261,34 @@ const BookSearchDisplay: React.FC = () => {
             </form>
           </div>
           <div>
-            <form onSubmit={checkboxFormSubmitHandler}>
+            <form
+              onSubmit={checkboxFormSubmitHandler}
+              className="max-[1050px]:flex max-[1050px]:gap-4 max-[630px]:flex-col"
+            >
               <h4 className="font-bold">Filter</h4>
-              {allCategories[category]?.map((subCat: string) => {
-                return (
-                  <div key={subCat} className="flex items-center">
-                    <input
-                      className="mr-2 h-4 w-4 rounded-full text-blue-500"
-                      type="checkbox"
-                      id={subCat}
-                      value={subCat}
-                      onChange={checkboxChangeHandler}
-                    ></input>
-                    <label htmlFor={subCat}>{subCat}</label>
-                  </div>
-                );
-              })}
+              <div className="max-[1050px]:grid max-[1050px]:grid-cols-3 max-[1050px]:gap-4 max-[950px]:grid-cols-2 max-[780px]:grid-cols-3 max-[630px]:grid-cols-2  max-[630px]:grid-cols-1   ">
+                {" "}
+                {allCategories[category]?.map((subCat: string) => {
+                  return (
+                    <div key={subCat} className="flex items-center">
+                      <input
+                        className="mr-2 h-4 w-4  rounded-full text-blue-500"
+                        type="checkbox"
+                        id={subCat}
+                        value={subCat}
+                        onChange={checkboxChangeHandler}
+                      ></input>
+                      <label className="whitespace-nowrap" htmlFor={subCat}>
+                        {subCat}
+                      </label>
+                    </div>
+                  );
+                })}
+              </div>
 
               <button
                 type="submit"
-                className="text-white font-bold bg-black px-4 py-2  mt-2"
+                className="text-white font-bold bg-black px-4 py-2  mt-2 max-[1050px]:self-start "
               >
                 Filter
               </button>
@@ -292,7 +300,7 @@ const BookSearchDisplay: React.FC = () => {
             <LoadingSpinner fullscreen={false}></LoadingSpinner>
           </div>
         ) : (
-          <div className=" flex-1 grid grid-cols-5 gap-4">
+          <div className=" flex-1 grid grid-cols-5 gap-4 max-[1500px]:grid-cols-3 max-[630px]:grid-cols-2 max-[470px]:grid-cols-1 ">
             {slicedBooks!.map((el) => {
               return (
                 <BookSearchItem

@@ -2,9 +2,12 @@ import HomeBookItem from "./HomeBookItem";
 import SliderComponent from "./SliderComponent";
 import BookInterface from "@/models/BookInterface";
 import { useEffect, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 
 const NewReleases: React.FC = () => {
   const [books, setBooks] = useState<BookInterface[]>();
+
+  const isMobile = useMediaQuery({ query: "(max-width:800px)" });
 
   useEffect(() => {
     async function fetchData() {
@@ -24,8 +27,8 @@ const NewReleases: React.FC = () => {
       <h2 className="text-center text-4xl font-bold mb-16">New Releases</h2>
       <SliderComponent
         speed={500}
-        slidesToShow={5}
-        slidesToScroll={5}
+        slidesToShow={isMobile ? 2 : 5}
+        slidesToScroll={isMobile ? 2 : 5}
         dots={true}
         adaptiveHeight={false}
       >

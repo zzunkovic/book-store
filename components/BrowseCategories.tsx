@@ -4,11 +4,11 @@ interface BrowseCategoriesProps {}
 
 const BrowseCategories: React.FC<BrowseCategoriesProps> = () => {
   return (
-    <section className="max-w-section mx-auto">
+    <section className="max-w-section mx-auto px-8">
       <h2 className="text-center text-4xl font-bold mb-16">
         Browse Categories
       </h2>
-      <div className="grid grid-cols-4 gap-4 h-[25rem] mb-24">
+      <div className="grid grid-cols-4 gap-4 h-[25rem] mb-24  max-[980px]:grid-cols-2 max-[980px]:h-[40rem] max-[530px]:grid-cols-1">
         <CategoryItem
           name="Fiction"
           img={"/img/alice-alinari-HUqxgjORAnw-unsplash.jpg"}

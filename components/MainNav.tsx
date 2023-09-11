@@ -1,29 +1,33 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useCartContext } from "@/store/CartContext";
+import { useMediaQuery } from "react-responsive";
+import { useState } from "react";
+import { Transition } from "react-transition-group";
 
 const MainNav: React.FC = () => {
+  const isMobile = useMediaQuery({ query: "(max-width:980px)" });
   const { toggleCartHandler } = useCartContext();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const shoppingCartClickHandler = () => {
     toggleCartHandler();
   };
 
-  return (
-    <header className="flex items-center justify-between  px-16 py-2 sticky top-0 bg-white z-[999]">
-      <Link href="/">
-        {" "}
-        <Image
-          className="h-auto w-64"
-          src="/img/logo.png"
-          alt="Bookverse logo"
-          width={300}
-          height={100}
-        ></Image>
-      </Link>
+  const menuClickHandler = () => {
+    setMenuOpen((prevMenu) => {
+      return !prevMenu;
+    });
+  };
 
-      <nav className="flex gap-16">
-        <ul className="flex gap-4 text-lg">
+  const mobileNav = (
+    <Transition in={menuOpen} timeout={100} unmountOnExit>
+      {(state) => (
+        <ul
+          className={`flex gap-4 text-lg absolute  flex-col  top-10 right-[-350%]  bg-white w-screen px-8 py-4 transition-transform transform translateY-${
+            state === "entered" ? "0" : "[100px]"
+          }`}
+        >
           <Link className="font-semibold hover:text-black/80" href="/Fiction">
             Fiction
           </Link>
@@ -40,6 +44,61 @@ const MainNav: React.FC = () => {
             Education
           </Link>
         </ul>
+      )}
+    </Transition>
+  );
+
+  return (
+    <header className="flex items-center justify-between gap-8  px-16 py-2 sticky top-0 bg-white z-[999] max-[980px]:px-2">
+      <Link href="/">
+        {" "}
+        <Image
+          className="h-auto w-64"
+          src="/img/logo.png"
+          alt="Bookverse logo"
+          width={300}
+          height={100}
+        ></Image>
+      </Link>
+
+      <nav className="flex gap-16 max-[980px]:gap-4">
+        {isMobile ? (
+          <button onClick={menuClickHandler} className="relative">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-6 h-6"
+              viewBox="0 0 448 512"
+            >
+              <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
+            </svg>
+            {mobileNav}
+          </button>
+        ) : (
+          <ul className="flex gap-4 text-lg">
+            <Link className="font-semibold hover:text-black/80" href="/Fiction">
+              Fiction
+            </Link>
+            <Link
+              className="font-semibold hover:text-black/80"
+              href="/Non-Fiction"
+            >
+              Non-Fiction
+            </Link>
+            <Link
+              className="font-semibold hover:text-black/80"
+              href="/Children"
+            >
+              Children
+            </Link>
+            <Link
+              className="font-semibold hover:text-black/80"
+              href="/Education"
+            >
+              Education
+            </Link>
+          </ul>
+        )}
+
         <ul className="flex gap-4">
           <Link href="/search">
             <svg

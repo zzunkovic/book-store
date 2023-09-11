@@ -2,11 +2,11 @@ import GridCard from "./GridCard";
 
 const WhyChooseUs: React.FC = () => {
   return (
-    <section className="max-w-section mx-auto mb-32">
+    <section className="max-w-section mx-auto mb-32 px-8">
       <h2 className="text-center text-4xl font-bold mb-16">
         Why Choose Bookverse
       </h2>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-3 gap-4 max-[980px]:grid-cols-1">
         <GridCard
           title="Diverse Reading"
           text="Our curated collection spans genres and cultures, ensuring there's a book for every reader. Immerse yourself in captivating stories that come alive on every page. "

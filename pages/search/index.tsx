@@ -47,7 +47,7 @@ const SearchPage: React.FC = () => {
   }, [searchString]);
 
   return (
-    <section className="max-w-section mx-auto  min-h-screen">
+    <section className="max-w-section mx-auto  min-h-screen px-8">
       <h2 className="font-bold text-5xl text-center mt-2 mb-16">Book Search</h2>
       <form className="mb-24" onSubmit={onSubmitHandler}>
         <div className="flex">
@@ -71,7 +71,7 @@ const SearchPage: React.FC = () => {
           <LoadingSpinner fullscreen={false}></LoadingSpinner>
         </div>
       ) : (
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-4 gap-4 max-[1050px]:grid-cols-3 max-[700px]:grid-cols-2 max-[550px]:grid-cols-1">
           {searchedBooks?.map((el) => {
             return (
               <BookSearchItem

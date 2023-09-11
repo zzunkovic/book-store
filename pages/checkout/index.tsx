@@ -38,7 +38,7 @@ const CheckoutPage: React.FC = () => {
         Please enter your details below
       </div>
       <div>
-        <form className="grid grid-cols-2 gap-2 ">
+        <form className="grid grid-cols-2 gap-2 max-[700px]:grid-cols-1 ">
           <input
             className="border-[1px] h-10 px-2 focus:outline-none"
             placeholder="Name"
@@ -139,15 +139,15 @@ const CheckoutPage: React.FC = () => {
   };
 
   return (
-    <section className="max-w-section mx-auto mb-16 min-h-[40rem]">
+    <section className="max-w-section mx-auto mb-16 min-h-[40rem] px-8">
       <h2 className="font-bold text-5xl text-center mt-2 mb-16">Checkout</h2>
 
-      <div className="flex gap-32">
+      <div className="flex gap-16 max-[1100px]:flex-col">
         <div className="flex-shrink-0">
-          <div className="grid grid-cols-4 text-center gap-4 font-semibold mb-8">
+          <div className="grid grid-cols-4 text-center gap-4 font-semibold mb-8 max-[700px]:grid-cols-1">
             <button
               onClick={() => setCurWindow("cartSummary")}
-              className="bg-black text-white"
+              className=" px-6 py-1 bg-black text-white"
             >
               Cart Summary
             </button>

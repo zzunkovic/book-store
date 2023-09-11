@@ -31,7 +31,7 @@ const CheckoutProduct: React.FC<CheckoutPageProps> = ({
   };
 
   return (
-    <div className="flex gap-4 border-[1px] py-4 px-8 w-full">
+    <div className="flex gap-4 border-[1px] py-4 px-8 w-full max-[700px]:flex-col max-[700px]: items-center">
       <div>
         <Image
           src={img}
@@ -46,7 +46,7 @@ const CheckoutProduct: React.FC<CheckoutPageProps> = ({
         <p className="mb-2">{author}</p>
         <p className="text-2xl">${price}</p>
       </div>
-      <div className="ml-auto flex gap-2  items-center">
+      <div className="ml-auto flex gap-2  items-center max-[700px]:ml-0">
         <div className="inline-block mr-2 font-semibold">Quantity</div>
         <input
           className="w-[5ch] h-8 text-center focus:outline-none border-[1px]"
