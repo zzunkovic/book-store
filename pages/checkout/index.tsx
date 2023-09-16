@@ -1,15 +1,110 @@
 import { useCartContext } from "@/store/CartContext";
 import CheckoutProduct from "@/components/CheckoutProduct";
-import { useState } from "react";
-import next from "next";
+import { ChangeEvent, useEffect, useState } from "react";
 
 const DELIVERY = 3.99;
 
 type windows = "cartSummary" | "customerDetails" | "delivery" | "payment";
 
+interface customerDetailsFormInterface {
+  name: string;
+  lastName: string;
+  address: string;
+  postalCode: string;
+  phoneNumber: string;
+  email: string;
+}
+
+interface customerDetailsFormValidityInterface {
+  name: boolean;
+  lastName: boolean;
+  address: boolean;
+  postalCode: boolean;
+  phoneNumber: boolean;
+  email: boolean;
+}
+
+type deliveryType = "homeDelivery" | "inStorePickUp" | "";
+type paymentType = "creditCard" | "payWithCash" | "";
+
 const CheckoutPage: React.FC = () => {
   const { cart, totalPrice } = useCartContext();
   const [curWindow, setCurWindow] = useState<windows>("cartSummary");
+  const [nextStepAvailable, setNextStepAvailable] = useState(true);
+
+  const [customerDetailsForm, setCustomerDetailsForm] =
+    useState<customerDetailsFormInterface>({
+      name: "",
+      lastName: "",
+      address: "",
+      postalCode: "",
+      phoneNumber: "",
+      email: "",
+    });
+  const [customerDetailsFormValidity, setCustomerDetailsFormValidity] =
+    useState<customerDetailsFormValidityInterface>({
+      name: false,
+      lastName: false,
+      address: false,
+      postalCode: false,
+      phoneNumber: false,
+      email: false,
+    });
+
+  const [deliveryForm, setDeliveryForm] = useState<deliveryType>("");
+
+  const [paymentForm, setPaymentForm] = useState<paymentType>("");
+
+  const [isFormDetailsValid, setIsDetailsFormValid] = useState(false);
+  const [isFormDeliveryValid, setIsFormDeliveryValid] = useState(false);
+  const [isFormPaymentValid, setIsFormPaymentValid] = useState(false);
+
+  const customerDetailsChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    if (value !== "") {
+      setCustomerDetailsFormValidity((prevFormVal) => {
+        const newFormVal = { ...prevFormVal, [name]: true };
+        console.log(newFormVal);
+        return newFormVal;
+      });
+    } else {
+      setCustomerDetailsFormValidity((prevFormVal) => {
+        const newFormVal = { ...prevFormVal, [name]: false };
+        return newFormVal;
+      });
+    }
+
+    setCustomerDetailsForm((prevForm) => {
+      const newForm = { ...prevForm, [name]: value };
+      return newForm;
+    });
+  };
+
+  useEffect(() => {
+    console.log("Checkking form validity 💚");
+    if (
+      Object.values(customerDetailsFormValidity).every((val) => val === true)
+    ) {
+      console.log("FORM IS VALID 🈯");
+      setIsDetailsFormValid(true);
+    }
+  }, [customerDetailsFormValidity]);
+
+  const deliveryChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setDeliveryForm(value as deliveryType);
+    setIsFormDeliveryValid(true);
+  };
+
+  const paymentChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const { checked, value } = e.target;
+
+    if (checked) {
+      setPaymentForm(value as paymentType);
+      setIsFormPaymentValid(true);
+    }
+  };
 
   const cartSummaryWindow = (
     <div>
@@ -42,26 +137,44 @@ const CheckoutPage: React.FC = () => {
           <input
             className="border-[1px] h-10 px-2 focus:outline-none"
             placeholder="Name"
+            name="name"
+            value={customerDetailsForm.name}
+            onChange={customerDetailsChangeHandler}
           ></input>
           <input
             className="border-[1px] h-10 px-2 focus:outline-none"
             placeholder="Last Name"
+            name="lastName"
+            value={customerDetailsForm.lastName}
+            onChange={customerDetailsChangeHandler}
           ></input>
           <input
             className="border-[1px] h-10 px-2 focus:outline-none"
             placeholder="Address"
+            name="address"
+            value={customerDetailsForm.address}
+            onChange={customerDetailsChangeHandler}
           ></input>
           <input
             className="border-[1px] h-10 px-2 focus:outline-none"
             placeholder="Postal Code"
+            name="postalCode"
+            value={customerDetailsForm.postalCode}
+            onChange={customerDetailsChangeHandler}
           ></input>
           <input
             className="border-[1px] h-10 px-2 focus:outline-none"
             placeholder="Phone Number"
+            name="phoneNumber"
+            value={customerDetailsForm.phoneNumber}
+            onChange={customerDetailsChangeHandler}
           ></input>
           <input
             className="border-[1px] h-10 px-2 focus:outline-none"
             placeholder="Email"
+            name="email"
+            value={customerDetailsForm.email}
+            onChange={customerDetailsChangeHandler}
           ></input>
         </form>
       </div>
@@ -76,11 +189,25 @@ const CheckoutPage: React.FC = () => {
       <form className="test">
         <div className="flex justify-between px-4 py-8 border-[1px] mb-2">
           <label className="font-semibold">Home Delivery</label>
-          <input type="radio" name="delivery" className="mr-16"></input>
+          <input
+            type="radio"
+            name="delivery"
+            value="homeDelivery"
+            className="mr-16"
+            checked={deliveryForm === "homeDelivery"}
+            onChange={deliveryChangeHandler}
+          ></input>
         </div>
         <div className="flex justify-between px-4 py-8 border-[1px]">
           <label className="font-semibold">In-Store Pickup</label>
-          <input type="radio" name="delivery" className="mr-16"></input>
+          <input
+            type="radio"
+            value="inStorePickUp"
+            name="delivery"
+            checked={deliveryForm === "inStorePickUp"}
+            className="mr-16"
+            onChange={deliveryChangeHandler}
+          ></input>
         </div>
       </form>
     </div>
@@ -95,11 +222,25 @@ const CheckoutPage: React.FC = () => {
         {" "}
         <div className="flex justify-between px-4 py-8 border-[1px] mb-2">
           <label className="font-semibold">Credit card</label>
-          <input type="radio" name="payment" className="mr-16"></input>
+          <input
+            type="radio"
+            name="payment"
+            className="mr-16"
+            value="creditCard"
+            checked={paymentForm === "creditCard"}
+            onChange={paymentChangeHandler}
+          ></input>
         </div>
         <div className="flex justify-between px-4 py-8 border-[1px]">
           <label className="font-semibold">Pay with cash at pickup</label>
-          <input type="radio" name="payment" className="mr-16"></input>
+          <input
+            type="radio"
+            name="payment"
+            className="mr-16"
+            value="payWithCash"
+            checked={paymentForm === "payWithCash"}
+            onChange={paymentChangeHandler}
+          ></input>
         </div>
       </form>
     </div>
@@ -138,6 +279,27 @@ const CheckoutPage: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    if (curWindow === "cartSummary") {
+      setNextStepAvailable(true);
+    }
+
+    if (curWindow === "customerDetails") {
+      if (isFormDetailsValid) setNextStepAvailable(true);
+      else setNextStepAvailable(false);
+    }
+
+    if (curWindow === "delivery") {
+      if (isFormDeliveryValid) setNextStepAvailable(true);
+      else setNextStepAvailable(false);
+    }
+
+    if (curWindow === "payment") {
+      if (isFormPaymentValid) setNextStepAvailable(true);
+      else setNextStepAvailable(false);
+    }
+  }, [curWindow, isFormDetailsValid, isFormDeliveryValid, isFormPaymentValid]);
+
   return (
     <section className="max-w-section mx-auto mb-16 min-h-[40rem] px-8">
       <h2 className="font-bold text-5xl text-center mt-2 mb-16">Checkout</h2>
@@ -147,7 +309,7 @@ const CheckoutPage: React.FC = () => {
           <div className="grid grid-cols-4 text-center gap-4 font-semibold mb-8 max-[700px]:grid-cols-1">
             <button
               onClick={() => setCurWindow("cartSummary")}
-              className=" px-6 py-1 bg-black text-white"
+              className={` px-6 py-1 bg-black text-white `}
             >
               Cart Summary
             </button>
@@ -169,7 +331,11 @@ const CheckoutPage: React.FC = () => {
                 curWindow === "delivery" || curWindow === "payment"
                   ? "bg-black text-white"
                   : ""
-              }  `}
+              } ${
+                isFormDetailsValid
+                  ? ""
+                  : " pointer-events-none border-gray-500 text-gray-500"
+              } `}
             >
               Delivery
             </button>
@@ -177,7 +343,11 @@ const CheckoutPage: React.FC = () => {
               onClick={() => setCurWindow("payment")}
               className={`px-6 py-1 border-[1px]  border-black ${
                 curWindow === "payment" ? "bg-black text-white" : ""
-              }  `}
+              } ${
+                isFormDeliveryValid
+                  ? ""
+                  : " pointer-events-none border-gray-500 text-gray-500"
+              } `}
             >
               Payment
             </button>
@@ -203,7 +373,13 @@ const CheckoutPage: React.FC = () => {
             </div>
             <button
               onClick={nextStepHandler}
-              className="text-white bg-black w-full font-bold py-2 px-4 hover:bg-black/90 transition-all duration-300"
+              className={`text-white w-full font-bold py-2 px-4 transition-all duration-300${
+                nextStepAvailable
+                  ? " bg-black hover:bg-black/90 pointer-events-auto "
+                  : " bg-black/40 pointer-events-none"
+              }
+              
+              `}
             >
               {`${curWindow === "payment" ? "Complete Purchase" : "Next Step"}`}
             </button>

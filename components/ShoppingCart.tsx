@@ -41,7 +41,9 @@ const ShoppingCart: React.FC = () => {
 
           <Link
             href="/checkout"
-            className="text-white bg-black p-2 font-bold block text-center rounded-xl hover:bg-black/90 transition-all duration-300 mt-4"
+            className={`text-white bg-black p-2 font-bold block text-center rounded-xl hover:bg-black/90 transition-all duration-300 mt-4  ${
+              cart.length === 0 ? "pointer-events-none bg-black/50" : ""
+            }`}
           >
             Go to Checkout
           </Link>

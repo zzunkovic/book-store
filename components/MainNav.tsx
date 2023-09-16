@@ -7,7 +7,7 @@ import { Transition } from "react-transition-group";
 
 const MainNav: React.FC = () => {
   const isMobile = useMediaQuery({ query: "(max-width:980px)" });
-  const { toggleCartHandler } = useCartContext();
+  const { cart, toggleCartHandler } = useCartContext();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const shoppingCartClickHandler = () => {
@@ -118,7 +118,12 @@ const MainNav: React.FC = () => {
               <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
             </svg>
           </Link> */}
-          <button onClick={shoppingCartClickHandler}>
+          <button onClick={shoppingCartClickHandler} className="relative">
+            {cart.length > 0 && (
+              <div
+                className={`absolute top-0 -right-1 animate-bounce  pb-2 w-2 rounded-full bg-red-600 z-[9999]`}
+              ></div>
+            )}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"

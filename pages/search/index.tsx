@@ -16,6 +16,8 @@ const SearchPage: React.FC = () => {
   const [searchedBooks, setSearchedBooks] =
     useState<BookSearchItemInterface[]>();
 
+  const [noResultsFound, setNoResultsFound] = useState(true);
+
   const [isLoading, setIsLoading] = useState(false);
   const onSubmitHandler = (e: FormEvent) => {
     e.preventDefault();
@@ -36,6 +38,13 @@ const SearchPage: React.FC = () => {
           body: searchStringJSON,
         });
         const data = await res.json();
+
+        if (data.data.books.length === 0) {
+          setNoResultsFound(true);
+        } else {
+          setNoResultsFound(false);
+        }
+
         setSearchedBooks([...data.data.books]);
         setIsLoading(false);
       } catch (err) {
@@ -70,6 +79,8 @@ const SearchPage: React.FC = () => {
           {" "}
           <LoadingSpinner fullscreen={false}></LoadingSpinner>
         </div>
+      ) : noResultsFound ? (
+        <div className="text-center text-xl">No results found.</div>
       ) : (
         <div className="grid grid-cols-4 gap-4 max-[1050px]:grid-cols-3 max-[700px]:grid-cols-2 max-[550px]:grid-cols-1">
           {searchedBooks?.map((el) => {

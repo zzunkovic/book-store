@@ -39,8 +39,17 @@ const BookSearchDisplay: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setCategory(router.query.category as string);
-  }, [router.query.category]);
+    if (
+      router.query.category === "Fiction" ||
+      router.query.category === "Non-Fiction" ||
+      router.query.category === "Children" ||
+      router.query.category === "Education"
+    )
+      setCategory(router.query.category as string);
+    else {
+      router.replace("/404");
+    }
+  }, [router.query.category, router]);
 
   const pageInputRef = useRef<HTMLInputElement>(null);
 
@@ -123,7 +132,8 @@ const BookSearchDisplay: React.FC = () => {
 
   function sortChangeHandler(e: React.ChangeEvent<HTMLSelectElement>) {
     const sortMethod = e.target.value;
-
+    setPageNum(0);
+    setInputPageNum(1);
     switch (sortMethod) {
       case "none":
         setSortOptions({ sortParam: "none", asc: true });
@@ -203,9 +213,11 @@ const BookSearchDisplay: React.FC = () => {
   const bookFilter = (books: Array<any>) => {
     let filtered = [...books];
 
-    filtered = filtered.filter((el) => {
-      return filterOptions.includes(el.categories[1] as never);
-    });
+    if (filterOptions.length > 0) {
+      filtered = filtered.filter((el) => {
+        return filterOptions.includes(el.categories[1] as never);
+      });
+    }
 
     console.log(filtered);
     setFilteredBooks(filtered as never[]);
@@ -214,6 +226,8 @@ const BookSearchDisplay: React.FC = () => {
   const checkboxFormSubmitHandler = (e: FormEvent) => {
     e.preventDefault();
     bookFilter(books);
+    setPageNum(0);
+    setInputPageNum(1);
   };
 
   const sortedBooks = sortBooks(
@@ -226,6 +240,10 @@ const BookSearchDisplay: React.FC = () => {
     pageNum * BOOKS_PER_PAGE,
     BOOKS_PER_PAGE + pageNum * BOOKS_PER_PAGE
   );
+
+  const clearFilterHandler = () => {
+    setFilterOptions([]);
+  };
 
   return (
     <section className="mb-16 px-8">
@@ -266,9 +284,10 @@ const BookSearchDisplay: React.FC = () => {
               className="max-[1050px]:flex max-[1050px]:gap-4 max-[630px]:flex-col"
             >
               <h4 className="font-bold">Filter</h4>
-              <div className="max-[1050px]:grid max-[1050px]:grid-cols-3 max-[1050px]:gap-4 max-[950px]:grid-cols-2 max-[780px]:grid-cols-3 max-[630px]:grid-cols-2  max-[630px]:grid-cols-1   ">
+              <div className="max-[1050px]:grid max-[1050px]:grid-cols-3 max-[1050px]:gap-4 max-[950px]:grid-cols-2 max-[780px]:grid-cols-3 max-[630px]:grid-cols-1   ">
                 {" "}
                 {allCategories[category]?.map((subCat: string) => {
+                  const isChecked = filterOptions.includes(subCat as never);
                   return (
                     <div key={subCat} className="flex items-center">
                       <input
@@ -276,6 +295,7 @@ const BookSearchDisplay: React.FC = () => {
                         type="checkbox"
                         id={subCat}
                         value={subCat}
+                        checked={isChecked}
                         onChange={checkboxChangeHandler}
                       ></input>
                       <label className="whitespace-nowrap" htmlFor={subCat}>
@@ -291,6 +311,13 @@ const BookSearchDisplay: React.FC = () => {
                 className="text-white font-bold bg-black px-4 py-2  mt-2 max-[1050px]:self-start "
               >
                 Filter
+              </button>
+              <button
+                type="button"
+                className="ml-4"
+                onClick={clearFilterHandler}
+              >
+                Clear Filters
               </button>
             </form>
           </div>

@@ -35,8 +35,8 @@ const BookDisplay: React.FC = () => {
         body: idJSON,
       });
       const data = await res.json();
-      console.log("🧡❤🧡❤", data);
-      setBook(data.data.book);
+
+      setBook(data.data?.book);
       setIsLoading(false);
     }
     fetchData(bookId);

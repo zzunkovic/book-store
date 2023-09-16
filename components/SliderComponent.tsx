@@ -22,7 +22,7 @@ const SliderComponent: React.FC<SliderComponentProps> = ({
     dots: dots,
     adaptiveHeight: adaptiveHeight,
     draggable: true,
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 10000,
     infinite: true,
     speed: speed,
