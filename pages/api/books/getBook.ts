@@ -18,6 +18,7 @@ export default async function handler(
   } catch (err) {
     res.status(400).json({
       status: "fail",
+      message: err,
     });
   }
 }

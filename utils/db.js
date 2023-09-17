@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 const url = process.env.DB_HOST;
 
-console.log(url);
-
 const connectDb = async () => {
   try {
     await mongoose.connect(url);

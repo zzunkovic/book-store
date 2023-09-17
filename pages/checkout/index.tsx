@@ -65,7 +65,7 @@ const CheckoutPage: React.FC = () => {
     if (value !== "") {
       setCustomerDetailsFormValidity((prevFormVal) => {
         const newFormVal = { ...prevFormVal, [name]: true };
-        console.log(newFormVal);
+
         return newFormVal;
       });
     } else {
@@ -82,11 +82,9 @@ const CheckoutPage: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log("Checkking form validity 💚");
     if (
       Object.values(customerDetailsFormValidity).every((val) => val === true)
     ) {
-      console.log("FORM IS VALID 🈯");
       setIsDetailsFormValid(true);
     }
   }, [customerDetailsFormValidity]);

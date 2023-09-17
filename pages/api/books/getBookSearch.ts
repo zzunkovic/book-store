@@ -4,7 +4,7 @@ import { Book } from "@/utils/db";
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const query = req.body;
-    console.log(query);
+
     const searchRegex = new RegExp(query, "i");
     const searchedBooks = await Book.find({
       $or: [

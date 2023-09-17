@@ -17,7 +17,10 @@ const SearchPage: React.FC = () => {
     useState<BookSearchItemInterface[]>();
 
   const [noResultsFound, setNoResultsFound] = useState(true);
-
+  const [showError, setShowError] = useState({
+    display: false,
+    message: "",
+  });
   const [isLoading, setIsLoading] = useState(false);
   const onSubmitHandler = (e: FormEvent) => {
     e.preventDefault();
@@ -37,6 +40,7 @@ const SearchPage: React.FC = () => {
           },
           body: searchStringJSON,
         });
+        if (!res.ok) throw new Error("Failed to fetch data");
         const data = await res.json();
 
         if (data.data.books.length === 0) {
@@ -49,6 +53,11 @@ const SearchPage: React.FC = () => {
         setIsLoading(false);
       } catch (err) {
         console.log(err);
+        setIsLoading(false);
+        setShowError({
+          display: true,
+          message: "Something went wring while fetching data",
+        });
       }
     }
 
@@ -79,6 +88,8 @@ const SearchPage: React.FC = () => {
           {" "}
           <LoadingSpinner fullscreen={false}></LoadingSpinner>
         </div>
+      ) : showError.display ? (
+        <div className="text-center text-xl">{showError.message}</div>
       ) : noResultsFound ? (
         <div className="text-center text-xl">No results found.</div>
       ) : (

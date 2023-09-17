@@ -7,7 +7,6 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    console.log("🤍🤍🤍🤍🤍", req.body);
     const books = await Book.find({ categories: req.body });
 
     res.status(200).json({

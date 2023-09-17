@@ -12,7 +12,14 @@ const BookDisplay: React.FC = () => {
   const [book, setBook] = useState<BookInterface>();
   const [otherBooks, setOtherBooks] = useState<BookInterface[]>();
   const [isLoading, setIsLoading] = useState(true);
-
+  const [showErrorBook, setShowErrorBook] = useState({
+    display: false,
+    message: "",
+  });
+  const [showErrorOtherBooks, setShowErrorOtherBooks] = useState({
+    display: false,
+    message: "",
+  });
   const { addToCartHandler } = useCartContext();
 
   let bookId: string | undefined = undefined;
@@ -23,21 +30,32 @@ const BookDisplay: React.FC = () => {
   }
 
   useEffect(() => {
-    // const curBook = DUMMY_BOOKS.find((el) => el.id === bookId);
     async function fetchData(id: string | undefined) {
       setIsLoading(true);
+      if (id === undefined) return;
       const idJSON = JSON.stringify(id);
-      const res = await fetch("/api/books/getBook", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/JSON",
-        },
-        body: idJSON,
-      });
-      const data = await res.json();
 
-      setBook(data.data?.book);
-      setIsLoading(false);
+      try {
+        const res = await fetch("/api/books/getBook", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/JSON",
+          },
+          body: idJSON,
+        });
+        if (!res.ok) throw new Error("Failed to fetch data");
+        const data = await res.json();
+
+        setBook(data.data?.book);
+        setIsLoading(false);
+      } catch (err) {
+        console.error(err);
+        setIsLoading(false);
+        setShowErrorBook({
+          display: true,
+          message: "Something went wrong while fetching the data.",
+        });
+      }
     }
     fetchData(bookId);
     // setBook(curBook);
@@ -47,17 +65,24 @@ const BookDisplay: React.FC = () => {
     const category = book?.categories[0] as string;
     // const othBooks = DUMMY_BOOKS.filter((el) => el.categories[0] === category);
     async function fetchData(category: string) {
-      const categoryJSON = JSON.stringify(category);
-      const res = await fetch("/api/books/getCategory", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/JSON",
-        },
-        body: categoryJSON,
-      });
-
-      const othBooks = await res.json();
-      setOtherBooks([...othBooks.data.books]);
+      try {
+        const categoryJSON = JSON.stringify(category);
+        const res = await fetch("/api/books/getCategory", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/JSON",
+          },
+          body: categoryJSON,
+        });
+        if (!res.ok) throw new Error("Failed to fetch data");
+        const othBooks = await res.json();
+        setOtherBooks([...othBooks.data.books]);
+      } catch (err) {
+        setShowErrorOtherBooks({
+          display: true,
+          message: "Something went wrong while fetching the data.",
+        });
+      }
     }
 
     fetchData(category);
@@ -68,7 +93,6 @@ const BookDisplay: React.FC = () => {
   }
 
   const onClickCartHandler = () => {
-    console.log("Button CLicked ☢☢☢");
     addToCartHandler(book as BookInterface);
   };
 
@@ -76,6 +100,10 @@ const BookDisplay: React.FC = () => {
     <>
       {isLoading ? (
         <LoadingSpinner fullscreen={true}></LoadingSpinner>
+      ) : showErrorBook.display ? (
+        <div className="h-screen w-screen flex flex-col justify-center items-center text-3xl ">
+          {showErrorBook.message}
+        </div>
       ) : (
         <section className="max-w-section mx-auto mb-32 mt-16 px-8">
           <h2 className="text-5xl font-bold mb-12 max-[609px]:text-4xl">
@@ -157,20 +185,24 @@ const BookDisplay: React.FC = () => {
           </div>
           <div>
             <h3 className="text-3xl mb-8">Other books you might like</h3>
-            <div className="grid grid-cols-5 gap-2 max-[1130px]:grid-cols-3 max-[860px]:grid-cols-2 max-[530px]:grid-cols-1">
-              {otherBooks?.slice(0, 5).map((el) => {
-                return (
-                  <BookSearchItem
-                    title={el.title}
-                    author={el.author}
-                    price={el.price}
-                    id={el._id}
-                    img={el.img}
-                    key={el._id}
-                  ></BookSearchItem>
-                );
-              })}
-            </div>
+            {showErrorOtherBooks.display ? (
+              <div>{showErrorOtherBooks.message}</div>
+            ) : (
+              <div className="grid grid-cols-5 gap-2 max-[1130px]:grid-cols-3 max-[860px]:grid-cols-2 max-[530px]:grid-cols-1">
+                {otherBooks?.slice(0, 5).map((el) => {
+                  return (
+                    <BookSearchItem
+                      title={el.title}
+                      author={el.author}
+                      price={el.price}
+                      id={el._id}
+                      img={el.img}
+                      key={el._id}
+                    ></BookSearchItem>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </section>
       )}
