@@ -1,6 +1,7 @@
 import { useCartContext } from "@/store/CartContext";
 import CheckoutProduct from "@/components/CheckoutProduct";
 import { ChangeEvent, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 const DELIVERY = 3.99;
 
@@ -54,10 +55,16 @@ const CheckoutPage: React.FC = () => {
   const [deliveryForm, setDeliveryForm] = useState<deliveryType>("");
 
   const [paymentForm, setPaymentForm] = useState<paymentType>("");
-
+  const router = useRouter();
   const [isFormDetailsValid, setIsDetailsFormValid] = useState(false);
   const [isFormDeliveryValid, setIsFormDeliveryValid] = useState(false);
   const [isFormPaymentValid, setIsFormPaymentValid] = useState(false);
+
+  useEffect(() => {
+    if (cart.length === 0) {
+      router.replace("/");
+    }
+  }, [router, cart]);
 
   const customerDetailsChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
