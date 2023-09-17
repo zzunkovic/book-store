@@ -4,7 +4,7 @@ interface BrowseCategoriesProps {}
 
 const BrowseCategories: React.FC<BrowseCategoriesProps> = () => {
   return (
-    <section className="max-w-section mx-auto px-8">
+    <section className="max-w-section mx-auto px-8 mb-40">
       <h2 className="text-center text-4xl font-bold mb-16 whitespace-nowrap">
         Browse Categories
       </h2>

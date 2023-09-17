@@ -34,7 +34,7 @@ const TrendingBooks: React.FC = () => {
   }, []);
 
   return (
-    <section className="max-w-section mx-auto mb-32 px-8">
+    <section className="max-w-section mx-auto mb-48 px-8">
       <h2 className="text-center text-4xl font-bold mb-16">Trending Books</h2>
       {showError.display ? (
         <div className="text-center">{showError.message}</div>

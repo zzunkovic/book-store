@@ -335,14 +335,14 @@ const BookSearchDisplay: React.FC = () => {
                   >
                     Filter
                   </button>
-                  <button
-                    type="button"
-                    className="ml-4"
-                    onClick={clearFilterHandler}
-                  >
-                    Clear Filters
-                  </button>
                 </form>
+                <button
+                  type="button"
+                  className="block m mt-4"
+                  onClick={clearFilterHandler}
+                >
+                  Clear Filters
+                </button>
               </div>
             </div>
             {isLoading ? (

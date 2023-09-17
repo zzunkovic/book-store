@@ -15,7 +15,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="  max-w-section mx-auto mb-24 px-8">
+      <div className="  max-w-section mx-auto  mb-40 px-8">
         <SliderComponent
           speed={500}
           slidesToShow={1}
@@ -37,13 +37,13 @@ export default function Home() {
                 : "/img/Home-Slider-2.jpg"
             }`}
           ></SliderItem2>
-          <SliderItem2
+          <SliderItem3
             image={`${
               isMobile
-                ? "/img/Home-Slider-2-mobile.jpg"
-                : "/img/Home-Slider-2.jpg"
+                ? "/img/Home-Slider-3-mobile.jpg"
+                : "/img/Home-Slider-3.jpg"
             }`}
-          ></SliderItem2>
+          ></SliderItem3>
 
           {/* <SliderItem2 image="/img/Home-Slider-2.jpg"></SliderItem2>
           <SliderItem3 image="/img/Home-Slider-3.jpg"></SliderItem3> */}

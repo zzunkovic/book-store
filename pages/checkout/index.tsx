@@ -367,7 +367,9 @@ const CheckoutPage: React.FC = () => {
             </div>
             <div className="flex  justify-between mb-8">
               <p className="font-bold text-lg">Total Price</p>
-              <div className="font-bold text-lg">${totalPrice + DELIVERY}</div>
+              <div className="font-bold text-lg">
+                ${(totalPrice + DELIVERY).toFixed(2)}
+              </div>
             </div>
             <button
               onClick={nextStepHandler}

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useCartContext } from "@/store/CartContext";
-
+import slugify from "slugify";
 interface CartItemProps {
   id: string;
   title: string;
@@ -24,11 +24,11 @@ const CartItem: React.FC<CartItemProps> = ({
   const removeOnClickHandler = () => {
     removeFromCartHandler(id);
   };
-
+  const slug = slugify(title + " " + author + " " + id);
   return (
     <div className="flex justify-between">
       <Link
-        href="#"
+        href={`/products/${slug}`}
         className="flex-grow hover:bg-black/5 duration-300 transition-all"
       >
         <div className=" text-black mb-2 px-4 mx-2 py-2 rounded-md flex gap-4">

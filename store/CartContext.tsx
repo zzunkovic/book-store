@@ -37,16 +37,17 @@ const CartContextProvider = (props: any) => {
   const [cart, setCart] = useState<CartInterface[]>([
     {
       book: {
-        _id: "a7d51b369e164a79bc2f3421a5f1a8af",
-        title: "The Great Gatsby",
-        author: "F. Scott Fitzgerald",
-        price: 12.99,
+        _id: "6506c4853a92328ff162597a",
+        title: "Obstacle is the Way",
+        author: "Ryan Holiday",
+        price: 12.78,
         trending: true,
         newRelease: false,
         categories: ["Non-Fiction", "Business"],
-        img: "/img/book2.jpg",
-        description: "A story of the decadence and excesses of the Jazz Age.",
-        publicationDate: "April 10, 1925",
+        img: "https://wordery.com/jackets/299305b8/obstacle-is-the-way-ryan-holiday-9781781251492.jpg?width=261",
+        description:
+          "A marketing guru and media strategist, Ryan Holiday explores how the Stoic philosophy has helped create some of the most powerful people in the world succeed. Advocating a simple change in attitude, Holiday encourages you to think of adversity as an opportunity, rather than an insurmountable problem. When you accept that giving up is not an option, every challenge becomes a chance to display your ingenuity, courage and dedication, leading to success whatever the situation. With examples ranging from politicians and military leaders to sports stars, celebrities and business tycoons, the Stoic philosophy of self-mastery can turn any problem into a successful solution and completely revolutionise your life.",
+        publicationDate: "4 Jun 2015",
         ISBN: "978-0-7432-7356-5",
         dimension: "5.2 x 0.6 x 7.9 inches",
         weight: 8.8,
