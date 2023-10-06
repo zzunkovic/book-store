@@ -112,8 +112,8 @@ const CheckoutPage: React.FC = () => {
   };
 
   const cartSummaryWindow = (
-    <div>
-      <div className="bg-black text-white  px-4 py-2">Your Products</div>
+    <div className="rounded-xl overflow-hidden">
+      <div className="bg-black  text-white  px-4 py-2">Your Products</div>
       <div className="flex flex-col">
         {cart.map((el) => {
           return (
@@ -134,48 +134,48 @@ const CheckoutPage: React.FC = () => {
 
   const customerDetailsWindow = (
     <div>
-      <div className="bg-black text-white px-4 py-2 mb-4">
+      <div className="bg-black rounded-xl text-white px-4 py-2 mb-4">
         Please enter your details below
       </div>
       <div>
         <form className="grid grid-cols-2 gap-2 max-[700px]:grid-cols-1 ">
           <input
-            className="border-[1px] h-10 px-2 focus:outline-none"
+            className="border-[1px]  rounded-xl h-10 px-2 focus:outline-none"
             placeholder="Name"
             name="name"
             value={customerDetailsForm.name}
             onChange={customerDetailsChangeHandler}
           ></input>
           <input
-            className="border-[1px] h-10 px-2 focus:outline-none"
+            className="border-[1px]  rounded-xl h-10 px-2 focus:outline-none"
             placeholder="Last Name"
             name="lastName"
             value={customerDetailsForm.lastName}
             onChange={customerDetailsChangeHandler}
           ></input>
           <input
-            className="border-[1px] h-10 px-2 focus:outline-none"
+            className="border-[1px] rounded-xl h-10 px-2 focus:outline-none"
             placeholder="Address"
             name="address"
             value={customerDetailsForm.address}
             onChange={customerDetailsChangeHandler}
           ></input>
           <input
-            className="border-[1px] h-10 px-2 focus:outline-none"
+            className="border-[1px] rounded-xl h-10 px-2 focus:outline-none"
             placeholder="Postal Code"
             name="postalCode"
             value={customerDetailsForm.postalCode}
             onChange={customerDetailsChangeHandler}
           ></input>
           <input
-            className="border-[1px] h-10 px-2 focus:outline-none"
+            className="border-[1px] rounded-xl h-10 px-2 focus:outline-none"
             placeholder="Phone Number"
             name="phoneNumber"
             value={customerDetailsForm.phoneNumber}
             onChange={customerDetailsChangeHandler}
           ></input>
           <input
-            className="border-[1px] h-10 px-2 focus:outline-none"
+            className="border-[1px] rounded-xl h-10 px-2 focus:outline-none"
             placeholder="Email"
             name="email"
             value={customerDetailsForm.email}
@@ -188,29 +188,29 @@ const CheckoutPage: React.FC = () => {
 
   const deliveryWindow = (
     <div>
-      <div className="bg-black text-white  px-4 py-2 mb-4">
+      <div className="bg-black text-white rounded-xl px-4 py-2 mb-4">
         Please select your delivery method
       </div>
       <form className="test">
-        <div className="flex justify-between px-4 py-8 border-[1px] mb-2">
+        <div className="flex justify-between px-4 py-8 border-[1px] mb-2 rounded-xl">
           <label className="font-semibold">Home Delivery</label>
           <input
             type="radio"
             name="delivery"
             value="homeDelivery"
-            className="mr-16"
+            className="mr-16 rounded-xl"
             checked={deliveryForm === "homeDelivery"}
             onChange={deliveryChangeHandler}
           ></input>
         </div>
-        <div className="flex justify-between px-4 py-8 border-[1px]">
-          <label className="font-semibold">In-Store Pickup</label>
+        <div className="flex justify-between px-4 py-8 border-[1px] rounded-xl">
+          <label className="font-semibold rounded-xl">In-Store Pickup</label>
           <input
             type="radio"
             value="inStorePickUp"
             name="delivery"
             checked={deliveryForm === "inStorePickUp"}
-            className="mr-16"
+            className="mr-16 rounded-xl"
             onChange={deliveryChangeHandler}
           ></input>
         </div>
@@ -220,12 +220,12 @@ const CheckoutPage: React.FC = () => {
 
   const paymentWindow = (
     <div>
-      <div className="bg-black text-white  px-4 py-2 mb-4">
+      <div className="bg-black text-white  rounded-xl  px-4 py-2 mb-4">
         Please select your payment method
       </div>
       <form>
         {" "}
-        <div className="flex justify-between px-4 py-8 border-[1px] mb-2">
+        <div className="flex justify-between px-4 py-8 border-[1px] mb-2 rounded-xl">
           <label className="font-semibold">Credit card</label>
           <input
             type="radio"
@@ -236,7 +236,7 @@ const CheckoutPage: React.FC = () => {
             onChange={paymentChangeHandler}
           ></input>
         </div>
-        <div className="flex justify-between px-4 py-8 border-[1px]">
+        <div className="flex justify-between px-4 py-8 border-[1px] rounded-xl">
           <label className="font-semibold">Pay with cash at pickup</label>
           <input
             type="radio"
@@ -314,13 +314,13 @@ const CheckoutPage: React.FC = () => {
           <div className="grid grid-cols-4 text-center gap-4 font-semibold mb-8 max-[700px]:grid-cols-1">
             <button
               onClick={() => setCurWindow("cartSummary")}
-              className={` px-6 py-1 bg-black text-white `}
+              className={` px-6 py-1 bg-black text-white rounded-xl `}
             >
               Cart Summary
             </button>
             <button
               onClick={() => setCurWindow("customerDetails")}
-              className={`px-6 py-1 border-[1px]  border-black ${
+              className={` rounded-xl px-6 py-1 border-[1px]  border-black ${
                 curWindow === "customerDetails" ||
                 curWindow === "delivery" ||
                 curWindow === "payment"
@@ -332,7 +332,7 @@ const CheckoutPage: React.FC = () => {
             </button>
             <button
               onClick={() => setCurWindow("delivery")}
-              className={`px-6 py-1 border-[1px]  border-black ${
+              className={`rounded-xl px-6 py-1 border-[1px]  border-black ${
                 curWindow === "delivery" || curWindow === "payment"
                   ? "bg-black text-white"
                   : ""
@@ -346,7 +346,7 @@ const CheckoutPage: React.FC = () => {
             </button>
             <button
               onClick={() => setCurWindow("payment")}
-              className={`px-6 py-1 border-[1px]  border-black ${
+              className={`rounded-xl px-6 py-1 border-[1px]  border-black ${
                 curWindow === "payment" ? "bg-black text-white" : ""
               } ${
                 isFormDeliveryValid
@@ -359,7 +359,7 @@ const CheckoutPage: React.FC = () => {
           </div>
           <div>{renderWindow()}</div>
         </div>
-        <div className="w-full border-[1px]   self-start">
+        <div className="w-full border-[1px] rounded-xl overflow-hidden   self-start">
           <p className="bg-black text-white font-semibold px-4 py-2">
             Order Summary
           </p>
@@ -380,7 +380,7 @@ const CheckoutPage: React.FC = () => {
             </div>
             <button
               onClick={nextStepHandler}
-              className={`text-white w-full font-bold py-2 px-4 transition-all duration-300${
+              className={` rounded-xl text-white w-full font-bold py-2 px-4 transition-all duration-300${
                 nextStepAvailable
                   ? " bg-black hover:bg-black/90 pointer-events-auto "
                   : " bg-black/40 pointer-events-none"

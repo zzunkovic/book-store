@@ -16,7 +16,7 @@ const SliderItem3: React.FC<SliderItemProps> = ({ image }) => {
     <div className="  relative">
       {<Image src={image} alt="Promotion" width={1280} height={480}></Image>}
       <Link
-        className={`absolute text-xl bottom-[10%] left-[15%]  px-4 py-2  bg-white  text-red-400  font-serif ${
+        className={`absolute text-xl bottom-[10%] left-[15%]  px-4 py-2  bg-white  text-red-400  font-serif rounded-xl ${
           Libre.className
         } ${
           isMobile

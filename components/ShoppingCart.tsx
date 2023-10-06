@@ -4,7 +4,7 @@ import { useCartContext } from "@/store/CartContext";
 import styles from "../styles/scrollbar.module.css";
 
 const ShoppingCart: React.FC = () => {
-  const { cart, cartOpen, totalPrice } = useCartContext();
+  const { cart, cartOpen, closeCartHandler, totalPrice } = useCartContext();
 
   return (
     <div
@@ -44,6 +44,7 @@ const ShoppingCart: React.FC = () => {
             className={`text-white bg-black p-2 font-bold block text-center rounded-xl hover:bg-black/90 transition-all duration-300 mt-4  ${
               cart.length === 0 ? "pointer-events-none bg-black/50" : ""
             }`}
+            onClick={closeCartHandler}
           >
             Go to Checkout
           </Link>

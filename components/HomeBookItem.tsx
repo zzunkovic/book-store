@@ -22,7 +22,7 @@ const HomeBookItem: React.FC<BookSearchItemProps> = ({
 
   return (
     <Link href={`/products/${slug}`} className="">
-      <div className="  py-4 px-4 rounded-xl  hover:bg-black/10 duration-300 transition-all">
+      <div className="py-4 px-4  rounded-xl  hover:bg-black/10 duration-300 transition-all">
         <div className="mb-4 flex justify-center">
           <Image
             className="h-36 w-auto"

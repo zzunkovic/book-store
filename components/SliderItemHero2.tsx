@@ -23,7 +23,7 @@ const SliderItem2: React.FC<SliderItemProps> = ({ image }) => {
         ></Image>
       }
       <Link
-        className={`absolute whitespace-nowrap text-xl max-[509px]:text-sm top-[50%] left-[50%] translate-x-[-50%] uppercase px-4 py-2 font-bold bg-black text-white ${
+        className={`absolute whitespace-nowrap text-xl max-[509px]:text-sm top-[50%] left-[50%] translate-x-[-50%] uppercase px-4 py-2 font-bold bg-black text-white rounded-xl ${
           LibreFranklin.className
         } ${
           isMobile

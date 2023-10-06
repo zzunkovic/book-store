@@ -64,6 +64,10 @@ const SearchPage: React.FC = () => {
     fetchData();
   }, [searchString]);
 
+  useEffect(() => {
+    setNoResultsFound(false);
+  }, []);
+
   return (
     <section className="max-w-section mx-auto  min-h-screen px-8">
       <h2 className="font-bold text-5xl text-center mt-2 mb-16">Book Search</h2>

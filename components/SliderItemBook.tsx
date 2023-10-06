@@ -14,7 +14,7 @@ const SliderItemBook: React.FC<SliderItemTrendingProps> = ({
   price,
 }) => {
   return (
-    <div>
+    <div className="">
       <div className="flex justify-center">
         <Image
           className="mb-4 h-48 w-auto"

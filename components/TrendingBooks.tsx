@@ -35,7 +35,7 @@ const TrendingBooks: React.FC = () => {
 
   return (
     <section className="max-w-section mx-auto mb-48 px-8">
-      <h2 className="text-center text-4xl font-bold mb-16">Trending Books</h2>
+      <h2 className="text-4xl font-bold mb-8 ">Trending Books</h2>
       {showError.display ? (
         <div className="text-center">{showError.message}</div>
       ) : (
@@ -45,6 +45,7 @@ const TrendingBooks: React.FC = () => {
           slidesToScroll={isMobile ? 2 : 5}
           dots={true}
           adaptiveHeight={false}
+          arrows={false}
         >
           {books?.map((el) => {
             return (

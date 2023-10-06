@@ -15,39 +15,42 @@ export default function Home() {
 
   return (
     <>
-      <div className="  max-w-section mx-auto  mb-40 px-8">
-        <SliderComponent
-          speed={500}
-          slidesToShow={1}
-          slidesToScroll={1}
-          dots={true}
-          adaptiveHeight={true}
-        >
-          <SliderItem1
-            image={`${
-              isMobile
-                ? "/img/Home-Slider-1-mobile.jpg"
-                : "/img/Home-Slider-1.jpg"
-            }`}
-          ></SliderItem1>
-          <SliderItem2
-            image={`${
-              isMobile
-                ? "/img/Home-Slider-2-mobile.jpg"
-                : "/img/Home-Slider-2.jpg"
-            }`}
-          ></SliderItem2>
-          <SliderItem3
-            image={`${
-              isMobile
-                ? "/img/Home-Slider-3-mobile.jpg"
-                : "/img/Home-Slider-3.jpg"
-            }`}
-          ></SliderItem3>
+      <div className="px-4 pb-10  ">
+        <div className="  max-w-section mx-auto border-b-4  mb-40 border-black    rounded-xl overflow-hidden   ">
+          <SliderComponent
+            speed={500}
+            slidesToShow={1}
+            slidesToScroll={1}
+            dots={true}
+            adaptiveHeight={true}
+            arrows={true}
+          >
+            <SliderItem1
+              image={`${
+                isMobile
+                  ? "/img/Home-Slider-1-mobile.jpg"
+                  : "/img/Home-Slider-1.jpg"
+              }`}
+            ></SliderItem1>
+            <SliderItem2
+              image={`${
+                isMobile
+                  ? "/img/Home-Slider-2-mobile.jpg"
+                  : "/img/Home-Slider-2.jpg"
+              }`}
+            ></SliderItem2>
+            <SliderItem3
+              image={`${
+                isMobile
+                  ? "/img/Home-Slider-3-mobile.jpg"
+                  : "/img/Home-Slider-3.jpg"
+              }`}
+            ></SliderItem3>
 
-          {/* <SliderItem2 image="/img/Home-Slider-2.jpg"></SliderItem2>
+            {/* <SliderItem2 image="/img/Home-Slider-2.jpg"></SliderItem2>
           <SliderItem3 image="/img/Home-Slider-3.jpg"></SliderItem3> */}
-        </SliderComponent>
+          </SliderComponent>
+        </div>
       </div>
       <BrowseCategories></BrowseCategories>
       <TrendingBooks></TrendingBooks>
