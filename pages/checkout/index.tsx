@@ -307,7 +307,9 @@ const CheckoutPage: React.FC = () => {
 
   return (
     <section className="max-w-section mx-auto mb-16 min-h-[40rem] px-8">
-      <h2 className="font-bold text-5xl text-center mt-2 mb-16">Checkout</h2>
+      <h2 className="font-bold text-5xl text-center mt-2 mb-16 max-[980px]:text-2xl max-[980px]:mb-8">
+        Checkout
+      </h2>
 
       <div className="flex gap-16 max-[1100px]:flex-col">
         <div className="flex-shrink-0">

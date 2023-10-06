@@ -4,8 +4,8 @@ const Footer: React.FC = () => {
   return (
     <footer className="bg-black text-white py-32 px-8">
       <div className="max-w-section mx-auto grid grid-cols-3 gap-4 max-[980px]:grid-cols-2 max-[600px]:grid-cols-1">
-        <div>
-          <Link href="" className="">
+        <div className="max-[980px]:mb-8">
+          <Link href="" className="max-[980px]:mb-16">
             <Image
               src="/img/logo-blackbg.png"
               alt="bookverse logo"
@@ -55,7 +55,7 @@ const Footer: React.FC = () => {
           </p>
         </div>
 
-        <div className="text-white">
+        <div className="text-white max-[980px]:mb-8">
           <h3 className="font-bold mb-4">Quick Menu</h3>
           <ul className="flex flex-col gap-2">
             <li>
@@ -75,7 +75,7 @@ const Footer: React.FC = () => {
             </li>{" "}
           </ul>
         </div>
-        <div className="max-[980px]:col-span-full">
+        <div className="max-[980px]:col-span-full ">
           <h3 className="font-bold mb-4">Contact Us</h3>
           <address className=" flex flex-col gap-4 not-italic">
             <div className="flex gap-2">

@@ -53,7 +53,7 @@ const MainNav: React.FC = () => {
       <Link href="/">
         {" "}
         <Image
-          className="h-auto w-64"
+          className="h-auto w-64 max-[980px]:w-36 "
           src="/img/logo.png"
           alt="Bookverse logo"
           width={300}

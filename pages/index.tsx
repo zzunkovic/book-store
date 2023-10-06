@@ -15,8 +15,8 @@ export default function Home() {
 
   return (
     <>
-      <div className="px-4 pb-10  ">
-        <div className="  max-w-section mx-auto border-b-4  mb-40 border-black    rounded-xl overflow-hidden   ">
+      <div className="px-4 pb-10 max-[980px]:mt-6 ">
+        <div className="  max-w-section mx-auto border-b-4  mb-40 border-black max-[980px]:mb-12   rounded-xl overflow-hidden   ">
           <SliderComponent
             speed={500}
             slidesToShow={1}

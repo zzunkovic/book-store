@@ -3,7 +3,9 @@ import GridCard from "./GridCard";
 const WhyChooseUs: React.FC = () => {
   return (
     <section className="max-w-section mx-auto mb-64 px-8">
-      <h2 className=" text-4xl font-bold mb-8 ">Why Choose Bookverse</h2>
+      <h2 className=" text-4xl font-bold mb-8 max-[980px]:text-2xl max-[980px]:mb-4 ">
+        Why Choose Bookverse
+      </h2>
       <div className="grid grid-cols-3 gap-4 max-[980px]:grid-cols-1">
         <GridCard
           title="Diverse Reading"

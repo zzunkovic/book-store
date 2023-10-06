@@ -69,8 +69,10 @@ const SearchPage: React.FC = () => {
   }, []);
 
   return (
-    <section className="max-w-section mx-auto  min-h-screen px-8">
-      <h2 className="font-bold text-5xl text-center mt-2 mb-16">Book Search</h2>
+    <section className="max-w-section mx-auto  min-h-screen px-8 mb-16">
+      <h2 className="font-bold text-5xl text-center mt-2 mb-16 max-[980px]:text-2xl max-[980px]:mb-8">
+        Book Search
+      </h2>
       <form className="mb-24" onSubmit={onSubmitHandler}>
         <div className="flex">
           <input

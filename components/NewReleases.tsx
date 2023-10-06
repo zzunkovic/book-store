@@ -36,7 +36,9 @@ const NewReleases: React.FC = () => {
 
   return (
     <section className="max-w-section mx-auto mb-48 px-8">
-      <h2 className="text-4xl font-bold mb-8 ">New Releases</h2>
+      <h2 className="text-4xl font-bold mb-8 max-[980px]:text-2xl max-[980px]:mb-4">
+        New Releases
+      </h2>
       {showError.display ? (
         <div className="text-center">{showError.message}</div>
       ) : (

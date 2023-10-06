@@ -267,7 +267,7 @@ const BookSearchDisplay: React.FC = () => {
         </div>
       ) : (
         <section className="mb-16 px-8">
-          <h2 className="font-bold text-5xl text-center mt-2 mb-32">
+          <h2 className="font-bold text-5xl text-center mt-2 mb-32 max-[980px]:text-2xl max-[980px]:mb-8">
             {category} Books
           </h2>
           <div className="flex mb-4 max-[1050px]:flex-col max-[1050px]:gap-8  ">

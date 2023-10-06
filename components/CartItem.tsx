@@ -31,9 +31,9 @@ const CartItem: React.FC<CartItemProps> = ({
         href={`/products/${slug}`}
         className="flex-grow hover:bg-black/5 duration-300 transition-all"
       >
-        <div className=" text-black mb-2 px-4 mx-2 py-2 rounded-md flex gap-4">
+        <div className=" text-black mb-2 px-4 mx-2 py-2 rounded-md flex gap-4 w-full">
           <Image
-            className="w-12"
+            className="w-12 h-auto"
             alt={title}
             src={img}
             width={50}
