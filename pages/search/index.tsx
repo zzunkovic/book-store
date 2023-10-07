@@ -10,6 +10,12 @@ interface BookSearchItemInterface {
   img: string;
 }
 
+/*
+  Fetches the data from the query that the user provides in the search bar and displays
+  all the books that match the query
+
+*/
+
 const SearchPage: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [searchString, setSearchString] = useState<string | undefined>("");
@@ -56,7 +62,7 @@ const SearchPage: React.FC = () => {
         setIsLoading(false);
         setShowError({
           display: true,
-          message: "Something went wring while fetching data",
+          message: "Something went wrong while fetching data",
         });
       }
     }
@@ -65,6 +71,7 @@ const SearchPage: React.FC = () => {
   }, [searchString]);
 
   useEffect(() => {
+    //sets the no results found error message display to false if the component renders for the first time
     setNoResultsFound(false);
   }, []);
 

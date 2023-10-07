@@ -6,6 +6,12 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import { useCartContext } from "@/store/CartContext";
 import BookInterface from "@/models/BookInterface";
 
+/*
+  After getting the id of the book from the query, this component fetches the book from the
+  database and displays it.
+
+*/
+
 const BookDisplay: React.FC = () => {
   const router = useRouter();
   const { bookDetails } = router.query;

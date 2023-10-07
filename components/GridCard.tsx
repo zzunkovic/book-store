@@ -4,6 +4,11 @@ interface GridCardProps {
   icon: React.ReactElement;
 }
 
+/*
+This element is part of WhyChooseUs component and is responsible for rendering a card
+
+*/
+
 const GridCard: React.FC<GridCardProps> = ({ title, text, icon }) => {
   return (
     <div className="  py-12 px-12  border-black rounded-xl border-b-4 bg-gray-100">

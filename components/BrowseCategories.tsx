@@ -2,6 +2,12 @@ import CategoryItem from "./CategoryItem";
 
 interface BrowseCategoriesProps {}
 
+/*
+Contains links to all main categories which then act as search queries for displaying the books with the chosen category at the [category] page
+
+
+*/
+
 const BrowseCategories: React.FC<BrowseCategoriesProps> = () => {
   return (
     <section className="max-w-section mx-auto px-8 mb-40">

@@ -1,5 +1,9 @@
 import GridCard from "./GridCard";
 
+/*
+  Renders the Why choose us section on the home page. 
+*/
+
 const WhyChooseUs: React.FC = () => {
   return (
     <section className="max-w-section mx-auto mb-64 px-8">

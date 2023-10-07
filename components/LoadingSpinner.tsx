@@ -2,6 +2,13 @@ interface LoadingSpinnerProps {
   fullscreen: boolean;
 }
 
+/*
+
+Used to notify the user that the data is currently fetching
+
+
+*/
+
 const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ fullscreen }) => {
   return (
     <div

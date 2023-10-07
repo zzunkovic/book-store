@@ -11,6 +11,10 @@ interface SliderComponentProps {
   arrows: boolean;
 }
 
+/* 
+  Contains a customizable slider from the react slick library, which wraps the slidess
+*/
+
 const SliderComponent: React.FC<SliderComponentProps> = ({
   children,
   slidesToShow,

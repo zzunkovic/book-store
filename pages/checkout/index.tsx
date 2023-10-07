@@ -61,6 +61,8 @@ const CheckoutPage: React.FC = () => {
   const [isFormPaymentValid, setIsFormPaymentValid] = useState(false);
 
   useEffect(() => {
+    //any time a cart becomes empty, user is redirected to the home page
+
     if (cart.length === 0) {
       router.replace("/");
     }
@@ -69,6 +71,7 @@ const CheckoutPage: React.FC = () => {
   const customerDetailsChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
+    //setting the validity of the field depending on the entered value
     if (value !== "") {
       setCustomerDetailsFormValidity((prevFormVal) => {
         const newFormVal = { ...prevFormVal, [name]: true };
@@ -82,6 +85,7 @@ const CheckoutPage: React.FC = () => {
       });
     }
 
+    //assigning a value to the field
     setCustomerDetailsForm((prevForm) => {
       const newForm = { ...prevForm, [name]: value };
       return newForm;
@@ -89,6 +93,7 @@ const CheckoutPage: React.FC = () => {
   };
 
   useEffect(() => {
+    //The whole form becomes valid if the validity of all fields is set to true
     if (
       Object.values(customerDetailsFormValidity).every((val) => val === true)
     ) {
@@ -110,6 +115,8 @@ const CheckoutPage: React.FC = () => {
       setIsFormPaymentValid(true);
     }
   };
+
+  //Different windows that get rendered at different checkout stages
 
   const cartSummaryWindow = (
     <div className="rounded-xl overflow-hidden">
@@ -267,6 +274,7 @@ const CheckoutPage: React.FC = () => {
     }
   };
 
+  //enables  the next step button to navigate between stages
   const nextStepHandler = () => {
     switch (curWindow) {
       case "cartSummary":
@@ -285,6 +293,7 @@ const CheckoutPage: React.FC = () => {
   };
 
   useEffect(() => {
+    //checking whether the next step buttons should be available or not
     if (curWindow === "cartSummary") {
       setNextStepAvailable(true);
     }

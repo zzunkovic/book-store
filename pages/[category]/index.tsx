@@ -3,6 +3,7 @@ import BookSearchItem from "@/components/BookSearchItem";
 import { useState, useRef, useEffect, FormEvent } from "react";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
+//Lists of all categories a book could have
 const allCategories: any = {
   Fiction: [
     "Adventure",
@@ -30,6 +31,7 @@ const allCategories: any = {
   Education: ["Geography", "Languages", "Mathematics", "Medical", "Technology"],
 };
 
+//Holds the value of books that are displayed in the search results per page
 const BOOKS_PER_PAGE = 15;
 
 const BookSearchDisplay: React.FC = () => {
@@ -43,6 +45,11 @@ const BookSearchDisplay: React.FC = () => {
   });
 
   useEffect(() => {
+    /*
+      When the query from the url changes, the category is set, but only if its one of 
+      the valid ones. If the category is not valid, user is redirected to the 404 page
+    
+    */
     if (router.query && router.query.category) {
       const validCategories = [
         "Fiction",
@@ -59,15 +66,22 @@ const BookSearchDisplay: React.FC = () => {
     }
   }, [router.query.category, router]);
 
+  //used for displaying the page number of the pagination
   const pageInputRef = useRef<HTMLInputElement>(null);
 
   const [books, setBooks] = useState([]);
+
+  // Filtered books are set independently, because if the filters are changed, the information about all books is needed again.
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [pageNum, setPageNum] = useState(0);
 
   const [inputPageNum, setInputPageNum] = useState(pageNum + 1);
 
   useEffect(() => {
+    /*
+      Used for fetching books that have their category set to the one that the user chose.
+    */
+
     async function fetchData() {
       setIsLoading(true);
 
@@ -87,6 +101,7 @@ const BookSearchDisplay: React.FC = () => {
         const data = await res.json();
 
         setBooks(data.data.books);
+
         setFilteredBooks(data.data.books);
         setIsLoading(false);
       } catch (err) {
@@ -102,6 +117,7 @@ const BookSearchDisplay: React.FC = () => {
     fetchData();
   }, [category]);
 
+  //Calculates the number of pages needed to display all the books
   const maxPages = Math.trunc(filteredBooks?.length / BOOKS_PER_PAGE) + 1;
 
   interface SortOptions {
@@ -109,6 +125,7 @@ const BookSearchDisplay: React.FC = () => {
     asc: boolean;
   }
 
+  //used for sorting books
   const [sortOptions, setSortOptions] = useState<SortOptions>({
     sortParam: "none",
     asc: true,
@@ -117,6 +134,8 @@ const BookSearchDisplay: React.FC = () => {
   function pageSelectHandler(e: React.FormEvent) {
     e.preventDefault();
     const enteredPage = +pageInputRef.current!.value;
+
+    //guard clause that checks whether the page number is out of bounds
     if (enteredPage > maxPages || enteredPage < 1) return;
     setPageNum(enteredPage - 1);
     setInputPageNum(enteredPage);
@@ -147,6 +166,7 @@ const BookSearchDisplay: React.FC = () => {
   }
 
   function sortChangeHandler(e: React.ChangeEvent<HTMLSelectElement>) {
+    //sets what parameters should the books be sorted by
     const sortMethod = e.target.value;
     setPageNum(0);
     setInputPageNum(1);
@@ -250,6 +270,7 @@ const BookSearchDisplay: React.FC = () => {
     filteredBooks
   );
 
+  //sets the books that are going to be displayed based on page number
   const slicedBooks = sortedBooks!.slice(
     pageNum * BOOKS_PER_PAGE,
     BOOKS_PER_PAGE + pageNum * BOOKS_PER_PAGE

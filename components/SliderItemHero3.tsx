@@ -10,6 +10,11 @@ interface SliderItemProps {
   image: string;
 }
 
+/*
+  Displays slide at the home page slider 
+
+*/
+
 const SliderItem3: React.FC<SliderItemProps> = ({ image }) => {
   const isMobile = useMediaQuery({ query: "(max-width:700px)" });
   return (

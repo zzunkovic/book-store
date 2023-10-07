@@ -11,6 +11,11 @@ interface CheckoutPageProps {
   img: string;
 }
 
+/*
+  This element is a part of the checkout page where it renders the items that were inside the cart
+
+*/
+
 const CheckoutProduct: React.FC<CheckoutPageProps> = ({
   id,
   title,
@@ -19,12 +24,16 @@ const CheckoutProduct: React.FC<CheckoutPageProps> = ({
   quantity,
   img,
 }) => {
+  //accessing the CartContext and changing quantity if the user click the "+" or "-" button
+
   const { setQuantity, removeFromCartHandler } = useCartContext();
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const qty = +e.target.value;
     setQuantity(qty, id);
   };
+
+  //if the user clicks the trash can button, the item is deleted from the cart
 
   const removeItemHandler = () => {
     removeFromCartHandler(id);

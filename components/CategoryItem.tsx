@@ -5,6 +5,11 @@ interface CategoryItemProps {
   img: string;
 }
 
+/*
+This element is a part of the BrowseCategories component and is used to render individual categories
+
+*/
+
 const CategoryItem: React.FC<CategoryItemProps> = ({ name, img }) => {
   return (
     <Link className=" overflow-hidden" href={`/${name}`}>

@@ -1,14 +1,19 @@
 import SliderComponent from "./SliderComponent";
-import SliderItemBook from "./SliderItemBook";
+
 import HomeBookItem from "./HomeBookItem";
 import { useEffect, useState } from "react";
 import BookInterface from "@/models/BookInterface";
 import { useMediaQuery } from "react-responsive";
 
+/*
+  Renders the Trending Books section on the home page. When the component loads it fetches the book that have the trending property set to true.
+
+*/
+
 const TrendingBooks: React.FC = () => {
   const [books, setBooks] = useState<BookInterface[]>();
   const isMobile = useMediaQuery({ query: "(max-width:800px)" });
-  const isMobileXS = useMediaQuery({ query: "(max-width:450px)" });
+
   const [showError, setShowError] = useState({
     display: false,
     message: "",

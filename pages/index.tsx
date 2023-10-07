@@ -1,4 +1,3 @@
-import { Inter } from "next/font/google";
 import SliderComponent from "@/components/SliderComponent";
 import SliderItem1 from "@/components/SliderItemHero";
 import SliderItem2 from "@/components/SliderItemHero2";
@@ -8,7 +7,10 @@ import TrendingBooks from "@/components/TrendingBooks";
 import NewReleases from "@/components/NewReleases";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import { useMediaQuery } from "react-responsive";
-const inter = Inter({ subsets: ["latin"] });
+
+/*
+  Renders the home page
+*/
 
 export default function Home() {
   const isMobile = useMediaQuery({ query: "(max-width:700px)" });

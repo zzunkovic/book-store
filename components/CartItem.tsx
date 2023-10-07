@@ -11,6 +11,11 @@ interface CartItemProps {
   quantity: number;
 }
 
+/*
+This element renders inside the shopping card when the item is added to the cart. The whole element is a link that leads to the product page of the item.
+
+*/
+
 const CartItem: React.FC<CartItemProps> = ({
   id,
   title,

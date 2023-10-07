@@ -11,6 +11,14 @@ interface BookSearchItemProps {
   id: string;
 }
 
+/*
+
+Displays an item that is found by fetching the data through a user query provided at the serach page.
+Links to the product page.
+
+
+*/
+
 const BookSearchItem: React.FC<BookSearchItemProps> = ({
   img,
   title,

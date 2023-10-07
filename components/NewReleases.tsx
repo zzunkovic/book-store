@@ -4,10 +4,18 @@ import BookInterface from "@/models/BookInterface";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 
+/*
+  Renders the New Releases section on the home page. WHen the component loads it fetches the book that have the newRelease property set to true.
+
+*/
+
 const NewReleases: React.FC = () => {
   const [books, setBooks] = useState<BookInterface[]>();
 
+  //A variable that is set to true below 800px that is then used to change the number of slides in the slider that display at once
   const isMobile = useMediaQuery({ query: "(max-width:800px)" });
+
+  //showError is used if the data fetching was unsuccessful
   const [showError, setShowError] = useState({
     display: false,
     message: "",

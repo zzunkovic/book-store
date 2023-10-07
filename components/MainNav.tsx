@@ -5,6 +5,8 @@ import { useMediaQuery } from "react-responsive";
 import { useState } from "react";
 import { Transition } from "react-transition-group";
 
+/*Contains a navigation that is responsive. On smaller screens a hamburger menu is added. Inside of it are links that lead to different pages of the app*/
+
 const MainNav: React.FC = () => {
   const isMobile = useMediaQuery({ query: "(max-width:980px)" });
   const { cart, toggleCartHandler } = useCartContext();

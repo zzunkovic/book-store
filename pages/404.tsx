@@ -1,3 +1,7 @@
+/*
+  Renders the not found error page
+*/
+
 const ErrorPage: React.FC = () => {
   return (
     <div className="flex items-center justify-center h-screen w-screen flex-col">

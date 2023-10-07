@@ -11,6 +11,11 @@ interface BookSearchItemProps {
   id: string;
 }
 
+/*
+  This element contains a link that leads to the product page. It is a part of TrendingBooks and NewReleases where it is rendered inside a slider
+
+*/
+
 const HomeBookItem: React.FC<BookSearchItemProps> = ({
   img,
   title,

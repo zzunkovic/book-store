@@ -3,10 +3,16 @@ import CartItem from "./CartItem";
 import { useCartContext } from "@/store/CartContext";
 import styles from "../styles/scrollbar.module.css";
 
+/*
+Contains items that are currently in the shopping cart context. Also contains a link that leads to the checkout page but is only available when there are actually products inside of the cart
+
+*/
+
 const ShoppingCart: React.FC = () => {
   const { cart, cartOpen, closeCartHandler, totalPrice } = useCartContext();
 
   return (
+    //if the cartOpen value is set to true, then display the cart, otherwise move it off the screen
     <div
       className={` fixed  z-50 right-0 bg-white text-white  w-96 top-0 pt-16 h-full   transition-all  duration-300 max-[500px]:w-80 ${
         cartOpen ? "" : " translate-x-[100%]"
@@ -38,7 +44,7 @@ const ShoppingCart: React.FC = () => {
               ${totalPrice}
             </div>
           </div>
-
+          {/* prevents user from being able to click the button if the cart is empty */}
           <Link
             href="/checkout"
             className={`text-white bg-black p-2 font-bold block text-center rounded-xl hover:bg-black/90 transition-all duration-300 mt-4  ${

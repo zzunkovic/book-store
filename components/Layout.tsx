@@ -5,6 +5,10 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
+/*
+  Wraps the entire application to make sure the nav, shopping cart and footer are visible on all pages
+*/
+
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <>

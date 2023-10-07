@@ -1,5 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
+
+/* 
+Contains a footer that always displays at the bottom of the page
+*/
+
 const Footer: React.FC = () => {
   return (
     <footer className="bg-black text-white py-32 px-8">
