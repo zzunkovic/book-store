@@ -29,3 +29,9 @@ The next two sections display the books that have the newRelase or trending para
 This is a page that is displayed from a dynamic path which represents the category the user has chosen. In addition to the category name  displayed at the top by reading router.query, the book information is also fetched using
 the same data. When the component loads, a fetch request is sent to the API endpoint created with NextJS that then fetches books that belong to this category.
 Once all the books load, the user can either filter them, sort them or click on one of the displayed results. The filter categories change dynamically based on the chosen category.The books are displayed using pagination. 
+
+### Search Page
+On this page the user can search for different books based on the search query they provide. The book can be searched by authors, titles or categories. When the user presses the serach button, a fetch request is send to the API endpoint 
+that then responds with an array of books that satisfy the search query. The user can then click on of the book which leads him to the book details page.
+
+### Book Details Page
