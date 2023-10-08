@@ -19,11 +19,12 @@ Bookverse is a fictional e-commerce website that offers a variety of books.
 - Shopping cart system
 - Checkout with user forms
 
+## Pages
+
 ### Home Page
 The home page contains a slider at the top where all 3 of the slides were created inside Adobe Photoshop. Each of them contains a link that leads to either the search page or to a details page of the displayed book.
 Below the slider there is a section for browsing all the major categories the books are divided by. Each of the links then leads to a page that displays all books from the chosen category. 
 The next two sections display the books that have the newRelase or trending parameter set to true in the database. The data for the books is fetched as the page loads. 
-
 
 ### Book Display Page
 This is a page that is displayed from a dynamic path which represents the category the user has chosen. In addition to the category name  displayed at the top by reading router.query, the book information is also fetched using
@@ -45,3 +46,6 @@ that is only available if there are any items inside the cart. The total price i
 ### Checkout Page
 At the checkout page the user is only allowed to proceed to the next step once all the required information has been provided. If they delete all items from the cart, they will be redirected to the home page. There is also the option to increase the quantity
 of the product.
+
+
+
