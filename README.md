@@ -2,37 +2,29 @@
 
 # Bookverse: an Online Bookstore
 
-First, run the development server:
+Bookverse is a fictional e-commerce website that offers a variety of books. 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Technologies used
+- HTML
+- CSS
+- Typescript
+- ReactJS
+- NextJS
+- Tailwind
+- MongoDB
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
+- Fetching and displaying book data from the MongoDB database
+- Result filtering and sorting system
+- Shopping cart system
+- Checkout with user forms
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### Home Page
+The home page contains a slider at the top where all 3 of the slides were created inside Adobe Photoshop. Each of them contains a link that leads to either the search page or to a details page of the displayed book.
+Below the slider there is a section for browsing all the major categories the books are divided by. Each of the links then leads to a page that displays all books from the chosen category. 
+The next two sections display the books that have the newRelase or trending parameter set to true in the database. The data for the books is fetched as the page loads. 
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Book Display Page
+This is a page that is displayed from a dynamic path which represents the category the user has chosen. In addition to the category name  displayed at the top by reading router.query, the book information is also fetched using
+the same data. When the component loads, a fetch request is send to the API endpoint created with NextJS that then fetches books that belong to this category.
