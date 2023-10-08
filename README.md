@@ -35,3 +35,13 @@ On this page the user can search for different books based on the search query t
 that then responds with an array of books that satisfy the search query. The user can then click on of the book which leads him to the book details page.
 
 ### Book Details Page
+This page is displayed dynamically based on the query provided in the url. The book data is fetched using the id parameter of the query, while the other information in the url is there for a better user experience and for SEO purposes.
+Once the user has reached this page, he can add the book to the shopping cart.
+
+### Shopping Cart
+The shopping cart can be accessed from anywhere in the app. The data for the shopping cart is stored in the context. The user can remove the item directly from the shopping cart window or proceed to the checkoout page using the checkout button,
+that is only available if there are any items inside the cart. The total price is calculated automatically based on the items in the cart and their quantity and price.
+
+### Checkout Page
+At the checkout page the user is only allowed to proceed to the next step once all the required information has been provided. If they delete all items from the cart, they will be redirected to the home page. There is also the option to increase the quantity
+of the product.
